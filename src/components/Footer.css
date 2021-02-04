@@ -1,0 +1,14 @@
+.footer__container {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.8rem;
+  font-size: small;
+  background-color: rgb(221, 221, 221);
+}
+
+.footer__icons {
+  color: black;
+  margin-left: 1rem;
+  vertical-align: sub;
+  font-size: 16px !important;
+}

@@ -1,0 +1,30 @@
+.scene {width: 200px; height: 200px; perspective: 600px; align-self: center; justify-self:center}
+
+.cube {width: 100%; height: 100%; position: relative; 
+  transform-style: preserve-3d; transform: translateZ(-100px);
+  transition: transform 1s;}
+
+.cube__face {position: absolute; display: flex; justify-content: center;
+    align-items: center; width: 200px; height: 200px; font-family: Roboto;
+    font-size: 3rem; border: 2px solid black; opacity: 0.9;}
+
+.cube__face--front {transform: rotateY(0deg) translateZ(100px); 
+  background-color: lightsalmon;}
+.cube__face--right {transform: rotateY(90deg) translateZ(100px); 
+  background-color:lightseagreen}
+.cube__face--back {transform: rotateY(180deg) translateZ(100px);
+  background-color:lightskyblue}
+.cube__face--left {transform: rotateY(-90deg) translateZ(100px);
+background-color:lightslategrey;}
+.cube__face--top {transform: rotateX(90deg) translateZ(100px);
+background-color: lightyellow;}
+.cube__face--bottom {transform: rotateX(-90deg) translateZ(100px);
+background-color: lightpink;}
+
+/* Class animations */ 
+.cube.show-front {transform: translateZ(-100px) rotateY(0deg);}
+.cube.show-right {transform: translateZ(-100px) rotateY(-90deg);}
+.cube.show-back {transform: translateZ(-100px) rotateY(-180deg);}
+.cube.show-left {transform: translateZ(-100px) rotateY(90deg);}
+.cube.show-top {transform: translateZ(-100px) rotateX(-90deg);}
+.cube.show-bottom {transform: translateZ(-100px) rotateX(90deg);}
