@@ -14,8 +14,6 @@ const Cube = (props) => {
     const [topFlip, setTopFlip] = useState(false)
     const [bottomFlip, setBottomFlip] = useState(false)
 
-    const [cardFace, setCardFace] = useState(null)
-
     return (
         <div className="scene">
             <div className={`cube ${props.face}`}>
@@ -92,7 +90,7 @@ const Cube = (props) => {
                     </div>
                 </div>
             </div>
-        </div >
+        </div>
     )
 }
 
