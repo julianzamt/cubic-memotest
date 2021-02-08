@@ -1,13 +1,9 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import logo from "../img/cube-outline.svg"
-// import { randomFrancellas } from "../helpers/randomFrancellas"
-import firebase from "../config/firebase"
-import { roll } from "../helpers/roll"
 import "./Cube.css"
+import { roll } from "../helpers/roll"
 
 const Cube = (props) => {
-
-    let randomFrancellas = []
 
     const [frontFlip, setFrontFlip] = useState(false)
     const [backFlip, setBackFlip] = useState(false)
@@ -26,7 +22,7 @@ const Cube = (props) => {
                                 <img src={logo} alt="" width="100%" height="100%" />
                             </div>
                             <div className="card__face card__face--back">
-                                <img src={randomFrancellas[0]} alt="francella" width="100%" height="100%" className="francella" />
+                                <img src="https://firebasestorage.googleapis.com/v0/b/cubic-memotest.appspot.com/o/Francellas%2Ffrancella-1.jpg?alt=media&token=855bdaab-18ba-425c-8481-d21c257a997d" alt="francella" width="100%" height="100%" className="francella" />
                             </div>
                         </div>
                     </div>
