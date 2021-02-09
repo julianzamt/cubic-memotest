@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import logo from "../img/cube-outline.svg"
 import "./Cube.css"
 import { roll } from "../helpers/roll"
+import { randomFrancellas } from "../helpers/randomFrancellas"
 
 const Cube = (props) => {
 
@@ -11,6 +12,8 @@ const Cube = (props) => {
     const [rightFlip, setRightFlip] = useState(false)
     const [topFlip, setTopFlip] = useState(false)
     const [bottomFlip, setBottomFlip] = useState(false)
+
+    console.log(randomFrancellas)
 
     return (
         <div className="scene">
@@ -22,7 +25,7 @@ const Cube = (props) => {
                                 <img src={logo} alt="" width="100%" height="100%" />
                             </div>
                             <div className="card__face card__face--back">
-                                <img src="https://firebasestorage.googleapis.com/v0/b/cubic-memotest.appspot.com/o/Francellas%2Ffrancella-1.jpg?alt=media&token=855bdaab-18ba-425c-8481-d21c257a997d" alt="francella" width="100%" height="100%" className="francella" />
+                                <img src={randomFrancellas[0]} alt="francella" width="100%" height="100%" className="francella" />
                             </div>
                         </div>
                     </div>
