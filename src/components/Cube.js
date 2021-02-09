@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react"
 import logo from "../img/cube-outline.svg"
 import "./Cube.css"
 import { roll } from "../helpers/roll"
-import { randomFrancellas } from "../helpers/randomFrancellas"
+import randomFrancellas from "../helpers/randomFrancellas"
+import randomCubeFaces from "../helpers/randomCubeFaces"
 
 const Cube = (props) => {
 
@@ -13,12 +14,10 @@ const Cube = (props) => {
     const [topFlip, setTopFlip] = useState(false)
     const [bottomFlip, setBottomFlip] = useState(false)
 
-    console.log(randomFrancellas)
-
     return (
         <div className="scene">
             <div className={`cube ${props.face}`}>
-                <div className="cube__face cube__face--front">
+                <div className={`cube__face cube__face--${randomCubeFaces[0]}`}>
                     <div className="card__scene">
                         <div className={`card__object ${frontFlip ? "is-flipped" : null}`} onClick={() => setFrontFlip(!frontFlip)}>
                             <div className="card__face card__face--front">
@@ -30,7 +29,7 @@ const Cube = (props) => {
                         </div>
                     </div>
                 </div>
-                <div className="cube__face cube__face--back">
+                <div className={`cube__face cube__face--${randomCubeFaces[1]}`}>
                     <div className="card__scene">
                         <div className={`card__object ${backFlip ? "is-flipped" : null}`} onClick={() => setBackFlip(!backFlip)}>
                             <div className="card__face card__face--front">
@@ -42,7 +41,7 @@ const Cube = (props) => {
                         </div>
                     </div>
                 </div>
-                <div className="cube__face cube__face--right">
+                <div className={`cube__face cube__face--${randomCubeFaces[2]}`}>
                     <div className="card__scene">
                         <div className={`card__object ${rightFlip ? "is-flipped" : null}`} onClick={() => setRightFlip(!rightFlip)}>
                             <div className="card__face card__face--front">
@@ -54,7 +53,7 @@ const Cube = (props) => {
                         </div>
                     </div>
                 </div>
-                <div className="cube__face cube__face--left">
+                <div className={`cube__face cube__face--${randomCubeFaces[3]}`}>
                     <div className="card__scene">
                         <div className={`card__object ${leftFlip ? "is-flipped" : null}`} onClick={() => setLeftFlip(!leftFlip)}>
                             <div className="card__face card__face--front">
@@ -66,7 +65,7 @@ const Cube = (props) => {
                         </div>
                     </div>
                 </div>
-                <div className="cube__face cube__face--top">
+                <div className={`cube__face cube__face--${randomCubeFaces[4]}`}>
                     <div className="card__scene">
                         <div className={`card__object ${topFlip ? "is-flipped" : null}`} onClick={() => setTopFlip(!topFlip)}>
                             <div className="card__face card__face--front">
@@ -78,7 +77,7 @@ const Cube = (props) => {
                         </div>
                     </div>
                 </div>
-                <div className="cube__face cube__face--bottom">
+                <div className={`cube__face cube__face--${randomCubeFaces[5]}`}>
                     <div className="card__scene">
                         <div className={`card__object ${bottomFlip ? "is-flipped" : null}`} onClick={() => setBottomFlip(!bottomFlip)}>
                             <div className="card__face card__face--front">
