@@ -11,19 +11,14 @@ const cubeFaces = [
 
 let randomCubeFaces = []
 let discard = []
+let random = null;
 
-
-for (let i = 0; i < 6; i++) {
-    const random = roll(0, cubeFaces.length)
+while (randomCubeFaces.length < 7) {
+    random = roll(0, cubeFaces.length)
     if (!discard.includes(random)) {
         discard.push(random)
         randomCubeFaces.push(cubeFaces[random])
     }
-    else {
-        i--
-    }
 }
-
-console.log(randomCubeFaces)
 
 export default randomCubeFaces

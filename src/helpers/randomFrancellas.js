@@ -37,15 +37,13 @@ const francellas = [
 
 let randomFrancellas = []
 let discard = []
+let random = null;
 
-for (let i = 0; i < 10; i++) {
-    const random = roll(0, francellas.length)
+while (randomFrancellas.length < 11) {
+    random = roll(0, francellas.length)
     if (!discard.includes(random)) {
         discard.push(random)
         randomFrancellas.push(francellas[random])
-    }
-    else {
-        i--
     }
 }
 
