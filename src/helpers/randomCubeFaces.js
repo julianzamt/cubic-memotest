@@ -13,12 +13,14 @@ let randomCubeFaces = []
 let discard = []
 let random = null;
 
-while (randomCubeFaces.length < 7) {
+while (randomCubeFaces.length < cubeFaces.length) {
     random = roll(0, cubeFaces.length)
     if (!discard.includes(random)) {
         discard.push(random)
         randomCubeFaces.push(cubeFaces[random])
     }
 }
+
+console.log(randomCubeFaces)
 
 export default randomCubeFaces
