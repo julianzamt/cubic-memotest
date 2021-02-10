@@ -10,17 +10,13 @@ const cubeFaces = [
 ]
 
 let randomCubeFaces = []
-let discard = []
 let random = null;
 
 while (randomCubeFaces.length < cubeFaces.length) {
     random = roll(0, cubeFaces.length)
-    if (!discard.includes(random)) {
-        discard.push(random)
+    if (!randomCubeFaces.includes(cubeFaces[random])) {
         randomCubeFaces.push(cubeFaces[random])
     }
 }
-
-console.log(randomCubeFaces)
 
 export default randomCubeFaces
