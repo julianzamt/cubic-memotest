@@ -35,14 +35,23 @@ const francellas = [
     francella_16,
 ]
 
+// Pick 10 random Francellas from images repository
 let randomFrancellas = []
 let random = null;
 
-while (randomFrancellas.length < 11) {
+while (randomFrancellas.length < 10) {
     random = roll(0, francellas.length)
     if (!randomFrancellas.includes(francellas[random])) {
         randomFrancellas.push(francellas[random])
     }
 }
 
-export default randomFrancellas
+/* Random Cube Francellas */
+// Select 3 cards of randomFrancellas
+let cubeFrancellas = randomFrancellas.slice(0, 3)
+// Duplicate them 
+cubeFrancellas = cubeFrancellas.concat(cubeFrancellas)
+// Random Sort
+cubeFrancellas.sort(() => Math.random() - 0.5)
+
+export { cubeFrancellas }
