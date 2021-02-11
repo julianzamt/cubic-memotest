@@ -35,7 +35,7 @@ const francellas = [
     francella_16,
 ]
 
-// Pick 10 random Francellas from images repository
+// Pick 10 unique random Francellas from images repository
 let randomFrancellas = []
 let random = null;
 
