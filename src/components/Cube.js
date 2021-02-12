@@ -7,7 +7,7 @@ import { cubeFrancellas } from "../helpers/randomFrancellas"
 const Cube = (props) => {
     const context = useContext(AppContext)
 
-    // Each face flip state
+    // Each card flip state
     const [frontFlip, setFrontFlip] = useState(false)
     const [backFlip, setBackFlip] = useState(false)
     const [leftFlip, setLeftFlip] = useState(false)
@@ -18,6 +18,7 @@ const Cube = (props) => {
     // Game logic states
     const [currentCards, setCurrentCards] = useState([])
     const [currentFaces, setCurrentFaces] = useState([])
+    const [activeFaces, setActiveFaces] = useState(["front", "back", "right", "left", "top", "bottom"])
 
     const handleClick = (e) => {
         const eventCard = e.target.getAttribute("card")
@@ -56,25 +57,30 @@ const Cube = (props) => {
         console.log("Score: " + context.score)
         console.log("currentCard: " + currentCards + "// currentCard.length " + currentCards.length)
         console.log("currentFaces " + currentFaces)
+        console.log(activeFaces)
         if (currentCards.length === 2) {
+            // If scored
             if (currentCards[0] === currentCards[1]) {
                 context.setScore(context.score + 1)
+                const temp = activeFaces.filter(item => item !== currentFaces[0])
+                const newActiveFaces = temp.filter(item => item !== currentFaces[1])
+                setActiveFaces(newActiveFaces)
             }
-            // Reset game
-            setTimeout(() => {
-                setFrontFlip(false)
-                setBackFlip(false)
-                setLeftFlip(false)
-                setRightFlip(false)
-                setTopFlip(false)
-                setBottomFlip(false)
-            }, 1200)
+            // if not, reset
 
+            setTimeout(() => {
+                if (activeFaces.includes("front")) { setFrontFlip(false) }
+                if (activeFaces.includes("back")) { setBackFlip(false) }
+                if (activeFaces.includes("left")) { setLeftFlip(false) }
+                if (activeFaces.includes("right")) { setRightFlip(false) }
+                if (activeFaces.includes("top")) { setTopFlip(false) }
+                if (activeFaces.includes("bottom")) { setBottomFlip(false) }
+            }, 1200)
 
             setCurrentCards([])
             setCurrentFaces([])
         }
-    }, [currentCards, currentFaces, context.score])
+    }, [currentCards, currentFaces, context.score, activeFaces])
 
     return (
         <div className="scene">
