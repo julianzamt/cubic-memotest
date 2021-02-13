@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react"
+import React, { useState, useLayoutEffect, useContext } from "react"
 import AppContext from "../context/AppContext"
 import logo from "../img/cube-outline.svg"
 import "./Cube.css"
@@ -53,7 +53,7 @@ const Cube = (props) => {
         ])
     }
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         console.log("Score: " + context.score)
         console.log("currentCard: " + currentCards + "// currentCard.length " + currentCards.length)
         console.log("currentFaces " + currentFaces)
@@ -80,7 +80,7 @@ const Cube = (props) => {
             setCurrentCards([])
             setCurrentFaces([])
         }
-    }, [currentCards, currentFaces, context.score, activeFaces])
+    }, [currentCards, context])
 
     return (
         <div className="scene">
