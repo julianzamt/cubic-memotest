@@ -15,6 +15,8 @@ import francella_13 from "../img/francellas/francella-13.png"
 import francella_14 from "../img/francellas/francella-14.png"
 import francella_15 from "../img/francellas/francella-15.png"
 import francella_16 from "../img/francellas/francella-16.png"
+import francella_17 from "../img/francellas/francella-17.png"
+import francella_18 from "../img/francellas/francella-18.png"
 
 const francellas = [
     francella_1,
@@ -33,6 +35,8 @@ const francellas = [
     francella_14,
     francella_15,
     francella_16,
+    francella_17,
+    francella_18
 ]
 
 // Pick 10 unique random Francellas from images repository

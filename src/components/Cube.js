@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect, useContext } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import AppContext from "../context/AppContext"
 import logo from "../img/cube-outline.svg"
 import "./Cube.css"
@@ -53,36 +53,37 @@ const Cube = (props) => {
         ])
     }
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         console.log("Score: " + context.score)
         console.log("currentCard: " + currentCards + "// currentCard.length " + currentCards.length)
         console.log("currentFaces " + currentFaces)
-        console.log(activeFaces)
+        // copy state to be used before next render on reset
+        let activeFacesSync = activeFaces
         if (currentCards.length === 2) {
             // If scored
             if (currentCards[0] === currentCards[1]) {
                 context.setScore(context.score + 1)
                 const temp = activeFaces.filter(item => item !== currentFaces[0])
-                const newActiveFaces = temp.filter(item => item !== currentFaces[1])
-                setActiveFaces(newActiveFaces)
+                activeFacesSync = temp.filter(item => item !== currentFaces[1])
+                setActiveFaces(activeFacesSync)
             }
-            // if not, reset
-
+            console.log("ACtive Faces: " + activeFacesSync)
+            // reset cards that are not active
             setTimeout(() => {
-                if (activeFaces.includes("front")) { setFrontFlip(false) }
-                if (activeFaces.includes("back")) { setBackFlip(false) }
-                if (activeFaces.includes("left")) { setLeftFlip(false) }
-                if (activeFaces.includes("right")) { setRightFlip(false) }
-                if (activeFaces.includes("top")) { setTopFlip(false) }
-                if (activeFaces.includes("bottom")) { setBottomFlip(false) }
+                if (activeFacesSync.includes("front")) { setFrontFlip(false) }
+                if (activeFacesSync.includes("back")) { setBackFlip(false) }
+                if (activeFacesSync.includes("left")) { setLeftFlip(false) }
+                if (activeFacesSync.includes("right")) { setRightFlip(false) }
+                if (activeFacesSync.includes("top")) { setTopFlip(false) }
+                if (activeFacesSync.includes("bottom")) { setBottomFlip(false) }
             }, 1200)
-
             setCurrentCards([])
             setCurrentFaces([])
         }
-    }, [currentCards, context])
+    }, [currentCards, activeFaces, context, currentFaces])
 
     return (
+
         <div className="scene">
             <div className={`cube ${props.face}`}>
                 <div className="cube__face cube__face--front">
