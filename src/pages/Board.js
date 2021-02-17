@@ -15,18 +15,20 @@ const Board = () => {
     return (
         <div className="board__container">
             <Cube face={value} />
-            <FormControl component="fieldset">
-                <RadioGroup aria-label="cube-face" name="cube-face" value={value} onChange={handleChange} row>
-                    <FormControlLabel value="show-front" control={<Radio />} label="Front" />
-                    <FormControlLabel value="show-back" control={<Radio />} label="Back" />
-                    <FormControlLabel value="show-left" control={<Radio />} label="Left" />
-                    <FormControlLabel value="show-right" control={<Radio />} label="Right" />
-                    <FormControlLabel value="show-top" control={<Radio />} label="Top" />
-                    <FormControlLabel value="show-bottom" control={<Radio />} label="Bottom" />
-                </RadioGroup>
-            </FormControl>
         </div>
     )
 }
 
 export default Board
+
+/*For buttons variation */
+{/* <FormControl component="fieldset">
+    <RadioGroup aria-label="cube-face" name="cube-face" value={value} onChange={handleChange} row>
+        <FormControlLabel value="show-front" control={<Radio />} label="Front" />
+        <FormControlLabel value="show-back" control={<Radio />} label="Back" />
+        <FormControlLabel value="show-left" control={<Radio />} label="Left" />
+        <FormControlLabel value="show-right" control={<Radio />} label="Right" />
+        <FormControlLabel value="show-top" control={<Radio />} label="Top" />
+        <FormControlLabel value="show-bottom" control={<Radio />} label="Bottom" />
+    </RadioGroup>
+</FormControl> */}

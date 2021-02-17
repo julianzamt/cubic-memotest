@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react"
+import React, { useState, useEffect, useContext, useRef } from "react"
 import AppContext from "../context/AppContext"
 import logo from "../img/cube-outline.svg"
 import "./Cube.css"
@@ -57,6 +57,7 @@ const Cube = (props) => {
         console.log("Score: " + context.score)
         console.log("currentCard: " + currentCards + "// currentCard.length " + currentCards.length)
         console.log("currentFaces " + currentFaces)
+
         // copy state to be used before next render on reset
         let activeFacesSync = activeFaces
         if (currentCards.length === 2) {
@@ -82,10 +83,68 @@ const Cube = (props) => {
         }
     }, [currentCards, activeFaces, context, currentFaces])
 
-    return (
+    /* Rotate on drag*/
 
-        <div className="scene">
-            <div className={`cube ${props.face}`}>
+    // Cube drag states
+    const [drag, setDrag] = useState(false)
+    const [x0, setX0] = useState(null)
+    const [y0, setY0] = useState(null)
+    const A = .2;
+
+    const _C = useRef(null)
+
+    /* helper function to handle both mouse and touch */
+    function getE(ev) { return ev.touches ? ev.touches[0] : ev };
+
+    function lock(ev) {
+        let e = getE(ev);
+
+        setDrag(true)
+        setX0(e.clientX)
+        setY0(e.clientY)
+    };
+
+    function rotate(ev) {
+        if (drag) {
+            let e = getE(ev),
+                x = e.clientX, y = e.clientY,
+                dx = x - x0, dy = y - y0,
+                d = Math.hypot(dx, dy);
+
+            if (d) {
+                _C.current.style.setProperty('--p', getComputedStyle(_C.current).transform.replace('none', ''));
+                _C.current.style.setProperty('--a', `${+(A * d).toFixed(2)}deg`);
+                _C.current.style.setProperty('--i', (-dy).toFixed(2));
+                _C.current.style.setProperty('--j', +(dx).toFixed(2));
+
+                setX0(x)
+                setY0(y)
+            }
+        }
+    };
+
+    function release(ev) {
+        if (drag) {
+            setDrag(false)
+            setX0(null)
+            setY0(null)
+        }
+    };
+
+    useEffect(() => {
+        console.log(_C)
+    }, [])
+
+    return (
+        <div className="scene"
+            onMouseDown={lock}
+            onMouseMove={rotate}
+            onMouseUp={release}
+            onTouchStart={lock}
+            onTouchMove={rotate}
+            onTouchEnd={release}
+        >
+            <div className="cube" ref={_C}>
                 <div className="cube__face cube__face--front">
                     <div className="card__scene">
                         <div className={`card__object ${frontFlip ? "is-flipped" : null}`} >
