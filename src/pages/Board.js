@@ -22,7 +22,7 @@ const Board = () => {
 export default Board
 
 /*For buttons variation */
-{/* <FormControl component="fieldset">
+/* <FormControl component="fieldset">
     <RadioGroup aria-label="cube-face" name="cube-face" value={value} onChange={handleChange} row>
         <FormControlLabel value="show-front" control={<Radio />} label="Front" />
         <FormControlLabel value="show-back" control={<Radio />} label="Back" />
@@ -31,4 +31,4 @@ export default Board
         <FormControlLabel value="show-top" control={<Radio />} label="Top" />
         <FormControlLabel value="show-bottom" control={<Radio />} label="Bottom" />
     </RadioGroup>
-</FormControl> */}
+</FormControl> */

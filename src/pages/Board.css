@@ -1,5 +1,5 @@
 .board__container {
-  display: grid;
-  grid-template-rows: 70% auto;
+  display: flex;
   justify-content: center;
+  align-items: center;
 }
