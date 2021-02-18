@@ -21,7 +21,7 @@ const GlobalState = (props) => {
         registryFeedbackOut()
         localStorage.clear()
         setUsername(null)
-        history.push("/login")
+        history.push("/")
     }
     const logoutFeedbackIn = () => {
         setLogoutMessage(true)

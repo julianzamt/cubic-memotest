@@ -1,5 +1,17 @@
 .board__container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: relative;
 }
+
+.guest-advice {
+  position: relative;
+  bottom: 3em;
+  text-align: center;
+}
+
+.alert {
+  position: absolute !important;
+  padding: 0.2em !important;
+  width: 100%;
+  text-align: center;
+}
+
