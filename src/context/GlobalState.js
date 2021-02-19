@@ -6,8 +6,6 @@ const GlobalState = (props) => {
 
     const [login, setLogin] = useState(localStorage.getItem("login"))
     const [username, setUsername] = useState(localStorage.getItem("username"))
-    const [logoutMessage, setLogoutMessage] = useState(false)
-    const [registryFeedback, setRegistryFeedback] = useState(false)
     const [score, setScore] = useState(0)
     const history = useHistory()
 
@@ -17,23 +15,9 @@ const GlobalState = (props) => {
     }
     const logoutUser = () => {
         setLogin(false)
-        setLogoutMessage(true)
-        registryFeedbackOut()
         localStorage.clear()
         setUsername(null)
         history.push("/")
-    }
-    const logoutFeedbackIn = () => {
-        setLogoutMessage(true)
-    }
-    const logoutFeedbackOut = () => {
-        setLogoutMessage(false)
-    }
-    const registryFeedbackIn = () => {
-        setRegistryFeedback(true)
-    }
-    const registryFeedbackOut = () => {
-        setRegistryFeedback(false)
     }
 
     return (
@@ -42,12 +26,6 @@ const GlobalState = (props) => {
                 login: login,
                 loginUser: loginUser,
                 logoutUser: logoutUser,
-                logoutMessage: logoutMessage,
-                logoutFeedbackIn: logoutFeedbackIn,
-                logoutFeedbackOut: logoutFeedbackOut,
-                registryFeedback: registryFeedback,
-                registryFeedbackIn: registryFeedbackIn,
-                registryFeedbackOut: registryFeedbackOut,
                 username: username,
                 setUsername: setUsername,
                 score: score,

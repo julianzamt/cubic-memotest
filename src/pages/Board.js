@@ -2,16 +2,16 @@ import React, { useState, useContext } from "react"
 import "./Board.css"
 import Cube from "../components/Cube"
 import AppContext from "../context/AppContext"
-import Alert from 'react-bootstrap/Alert'
-import { CSSTransition } from "react-transition-group"
 
-const Board = () => {
+const Board = (props) => {
 
     const context = useContext(AppContext)
+    const [trigger, setTrigger] = useState(false)
 
     return (
         <div className="board__container">
-            {context.registryFeedback ? <Alert variant="success" className="alert" dismissible transition="true" onClose={context.registryFeedbackOut}>User registered and logged in</Alert> : null}
+            {props.registryFeedback ? <div className="feedback">Successfully registered and logged in</div> : null}
+            {props.loginErrorFeedback ? <div className="feedback">Sorry, there was an error processing your login. Please try again.</div> : null}
             <Cube />
             {
                 !context.login &&

@@ -7,26 +7,22 @@ import FormControl from 'react-bootstrap/FormControl'
 import Form from 'react-bootstrap/Form'
 import { Link } from "react-router-dom"
 import AppContext from "../context/AppContext"
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import Spinner from 'react-bootstrap/Spinner'
 import "./Header.css"
 
 
-const Header = () => {
+const Header = (props) => {
 
     const context = useContext(AppContext)
 
-    // Handle login
-
+    // Login form and logic
     const [form, setForm] = useState({
         email: "",
         password: ""
     })
 
     const [spinner, setSpinner] = useState(false)
-    const [error, setError] = useState("")
-    const [errorFeedback, setErrorFeedback] = useState(false)
 
     let userId = ""
 
@@ -49,8 +45,7 @@ const Header = () => {
                 setSpinner(false)
             })
             .catch((err) => {
-                setError(err.message)
-                setErrorFeedback(true)
+                props.setLoginErrorFeedback(true)
                 setSpinner(false)
             })
     }
@@ -66,6 +61,12 @@ const Header = () => {
         })
     }
 
+    function logout() {
+        props.setRegistryFeedback(false)
+        props.setLoginErrorFeedback(false)
+        context.logoutUser()
+    }
+
     return (
         <Navbar bg="light" expand="lg">
             <Navbar.Brand>
@@ -78,7 +79,7 @@ const Header = () => {
                     context.login &&
                     <Nav className="greeting">
                         {context.username !== null ? <Navbar.Text className="username">Hi there, {context.username}</Navbar.Text> : <Navbar.Text className="username welcome">Welcome!</Navbar.Text>}
-                        <Nav.Link onClick={context.logoutUser}><span className="logout">| Logout </span></Nav.Link>
+                        <Nav.Link onClick={logout}><span className="logout">| Logout </span></Nav.Link>
                     </Nav>
                 }
                 {
