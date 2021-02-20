@@ -1,17 +1,26 @@
-import React, { useState, useContext } from "react"
+import React, { useState, useContext, useEffect } from "react"
 import "./Board.css"
 import Cube from "../components/Cube"
 import AppContext from "../context/AppContext"
+import { useSpring, animated, config } from 'react-spring'
 
 const Board = (props) => {
 
     const context = useContext(AppContext)
-    const [trigger, setTrigger] = useState(false)
+
+    const fade = useSpring({
+        opacity: 0,
+        from: { opacity: 1 },
+        delay: 2500,
+        config: config.slow,
+        onRest: () => { props.setFeedbackFlag(false); props.setFeedbackMessage(null) },
+    })
 
     return (
         <div className="board__container">
-            {props.registryFeedback ? <div className="feedback">Successfully registered and logged in</div> : null}
-            {props.loginErrorFeedback ? <div className="feedback">Sorry, there was an error processing your login. Please try again.</div> : null}
+            <div className="feedback__container">
+                {props.feedbackFlag ? <animated.div style={fade} className="feedback">{props.feedbackMessage}</animated.div> : null}
+            </div>
             <Cube />
             {
                 !context.login &&

@@ -45,7 +45,8 @@ const Header = (props) => {
                 setSpinner(false)
             })
             .catch((err) => {
-                props.setLoginErrorFeedback(true)
+                props.setFeedbackFlag(true)
+                props.setFeedbackMessage(err.message)
                 setSpinner(false)
             })
     }
@@ -62,8 +63,8 @@ const Header = (props) => {
     }
 
     function logout() {
-        props.setRegistryFeedback(false)
-        props.setLoginErrorFeedback(false)
+        props.setFeedbackFlag(false)
+        props.setFeedbackMessage(null)
         context.logoutUser()
     }
 

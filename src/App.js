@@ -1,6 +1,6 @@
 import Footer from "./components/Footer"
 import Header from "./components/Header"
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import Board from "./pages/Board"
 import GlobalState from "./context/GlobalState"
 import Registro from "./pages/Registro"
@@ -9,32 +9,33 @@ import "./App.css"
 
 const App = () => {
     // Lifted states for user feedback on registration and login
-    const [registryFeedback, setRegistryFeedback] = useState(false)
-    const [loginErrorFeedback, setLoginErrorFeedback] = useState(false)
-    const [showFeedback, setShowFeedback] = useState(false)
+    const [feedbackFlag, setFeedbackFlag] = useState(false)
+    const [feedbackMessage, setFeedbackMessage] = useState(null)
+
+    useEffect(() => {
+
+    }, [feedbackFlag])
 
     return (
         <GlobalState>
             <div className="app__container">
                 <Header
-                    setRegistryFeedback={setRegistryFeedback}
-                    setLoginErrorFeedback={setLoginErrorFeedback}
-                    setShowFeedback={setShowFeedback}
+                    setFeedbackFlag={setFeedbackFlag}
+                    setFeedbackMessage={setFeedbackMessage}
                 />
                 <Switch>
                     <Route exact path='/'>
                         <Board
-                            registryFeedback={registryFeedback}
-                            loginErrorFeedback={loginErrorFeedback}
-                            showFeedback={showFeedback}
-                            setShowFeedback={setShowFeedback}
+                            feedbackFlag={feedbackFlag}
+                            setFeedbackFlag={setFeedbackFlag}
+                            feedbackMessage={feedbackMessage}
+                            setFeedbackMessage={setFeedbackMessage}
                         />
                     </Route>
                     <Route exact path='/registro'>
                         <Registro
-                            registryFeedback={registryFeedback}
-                            setRegistryFeedback={setRegistryFeedback}
-                            setShowFeedback={setShowFeedback}
+                            setFeedbackFlag={setFeedbackFlag}
+                            setFeedbackMessage={setFeedbackMessage}
                         />
                     </Route>
                 </Switch>

@@ -8,28 +8,15 @@
   text-align: center;
 }
 
+.feedback__container{
+  position: absolute;
+  left: 50%;
+}
+
 .feedback {
-  position: absolute !important;
-  padding: 0.2em !important;
-  width: 100%;
-  text-align: center;
+  position: relative;
+  top: 1em;
+  left: -50%;
 }
 
-.feedback-enter {
-  opacity: 0
-}
-
-.feedback-enter-active {
-  opacity: 1;
-  transition: opacity 0.3s ease-in;
-}
-
-.feedback-exit {
-  opacity: 1;
-}
-
-.feedback-exit-active {
-  opacity: 0;
-  transition: opacity 1s 1.7s ease-out;
-}
 
