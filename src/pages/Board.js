@@ -9,10 +9,12 @@ const Board = (props) => {
     const context = useContext(AppContext)
 
     const fade = useSpring({
-        opacity: 0,
+        to: {
+            opacity: props.feedbackFlag ? 0 : 1
+        },
         from: { opacity: 1 },
         delay: 2500,
-        config: config.slow,
+        config: { ...config.slow },
         onRest: () => { props.setFeedbackFlag(false); props.setFeedbackMessage(null) },
     })
 

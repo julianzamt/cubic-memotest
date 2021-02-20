@@ -12,10 +12,6 @@ const App = () => {
     const [feedbackFlag, setFeedbackFlag] = useState(false)
     const [feedbackMessage, setFeedbackMessage] = useState(null)
 
-    useEffect(() => {
-
-    }, [feedbackFlag])
-
     return (
         <GlobalState>
             <div className="app__container">

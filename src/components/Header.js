@@ -63,8 +63,8 @@ const Header = (props) => {
     }
 
     function logout() {
-        props.setFeedbackFlag(false)
-        props.setFeedbackMessage(null)
+        props.setFeedbackFlag(true)
+        props.setFeedbackMessage("See you soon!")
         context.logoutUser()
     }
 
