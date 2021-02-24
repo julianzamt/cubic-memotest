@@ -1,5 +1,13 @@
-.tries {
-    position: absolute;
-    font-family: Roboto;
+.tries__container {
+    display: flex;
+    justify-content: center;
+}
+
+.tries__text {
+    font-size: 1.5em;
+}
+
+.tries__number {
     font-size: 6em;
+    color: gray
 }

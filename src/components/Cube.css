@@ -13,7 +13,7 @@
 
 .cube {
   font-size: 8vmin;
-  top: calc(50% - 18px); left: 50%;
+  top: 50%; left: 50%; 
   transform-style: preserve-3d; 
   /* Here rotation takes place: var(--p) is a chained rotated3d with the new coordinates */
   transform: rotate3d(var(--i), var(--j), 0, var(--a)) var(--p, ); 

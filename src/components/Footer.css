@@ -1,6 +1,6 @@
 .footer__container {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   padding: 0.8rem;
   font-size: small;
 }

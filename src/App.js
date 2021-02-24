@@ -27,18 +27,18 @@ const App = () => {
                 />
                 <Switch>
                     <Route exact path='/'>
-                        {finalFlag ?
+                        {/* {finalFlag ?
                             <Final
                                 winFlag={winFlag}
-                            /> :
-                            <Board
-                                feedbackFlag={feedbackFlag}
-                                setFeedbackFlag={setFeedbackFlag}
-                                feedbackMessage={feedbackMessage}
-                                setFeedbackMessage={setFeedbackMessage}
-                                setFinalFlag={setFinalFlag}
-                                setWinFlag={setWinFlag}
-                            />}
+                            /> : */}
+                        <Board
+                            feedbackFlag={feedbackFlag}
+                            setFeedbackFlag={setFeedbackFlag}
+                            feedbackMessage={feedbackMessage}
+                            setFeedbackMessage={setFeedbackMessage}
+                            setFinalFlag={setFinalFlag}
+                            setWinFlag={setWinFlag}
+                        />
                     </Route>
                     <Route exact path='/registro'>
                         <Registro

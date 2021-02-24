@@ -33,7 +33,9 @@ const Timer = (props) => {
 
     return (
         <div className="timer__container">
-            <div className={beat ? "time beat" : "time"}>{time}</div>
+            <div>
+                <div className={beat ? "time beat" : "time"}>{time}</div>
+            </div>
         </div>
     )
 }

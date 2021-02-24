@@ -1,0 +1,10 @@
+.feedback__container{
+    position: absolute;
+    left: 50%;
+  }
+  
+.feedback {
+    position: relative;
+    top: 1em;
+    left: -50%;
+}

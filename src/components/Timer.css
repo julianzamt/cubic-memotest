@@ -1,47 +1,15 @@
-@font-face {
-    font-family: Square;
-    src: url(../fonts/square-sans-serif-7/square_sans_serif_7.ttf)
-}
-@font-face {
-    font-family: doublePixel;
-    src: url(../fonts/double-pixel-7/double_pixel-7.ttf)
-}
-
-@font-face {
-    font-family: fffForward;
-    src: url(../fonts/fff-forward/FFFFORWA.TTF)
-}
-@font-face {
-    font-family: digitGraphics;
-    src: url(../fonts/01-digitgraphics/01\ DigiGraphics.ttf)
-}
-@font-face {
-    font-family: 256Bytes;
-    src: url(../fonts/256-bytes/256\ bytes.ttf)
-}
-@font-face {
-    font-family: pressStart;
-    src: url(../fonts/press-start/prstart.ttf)
-}
-
-@font-face {
-    font-family: manaspace;
-    src: url(../fonts/manaspace/manaspc.ttf)
-}
-
 .timer__container {
     display: flex;
     justify-content: center;
-    align-items: center;
+}
+
+.time__text {
+    font-size: 1.5em;
 }
 
 .time {
-    position: absolute;
-    right: 50px;
-    top: 40%;
-    color: rgb(174, 67, 34);
-    font-family: Square;
-    font-size: 20vmin;
+    color:gray;
+    font-size: 6em;
 }
 
 .time.beat {
