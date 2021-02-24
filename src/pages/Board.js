@@ -10,16 +10,6 @@ const Board = (props) => {
 
     const context = useContext(AppContext)
 
-    let seconds = null
-    switch (context.level) {
-        case 1:
-            seconds = 20;
-            break;
-        default:
-            seconds = 20;
-            break;
-    }
-
     let initialTriesValue = null;
     switch (context.level) {
         case 1:
@@ -29,7 +19,6 @@ const Board = (props) => {
             initialTriesValue = 6
             break
     }
-
     const [tries, setTries] = useState(initialTriesValue)
 
     const fade = useSpring({
@@ -47,7 +36,7 @@ const Board = (props) => {
             <div className="feedback__container">
                 {props.feedbackFlag ? <animated.div style={fade} className="feedback">{props.feedbackMessage}</animated.div> : null}
             </div>
-            <Timer seconds={seconds} />
+            <Timer setFinalFlag={props.setFinalFlag} />
             <Tries tries={tries} />
             <Cube tries={tries} setTries={setTries} setFinalFlag={props.setFinalFlag} setWinFlag={props.setWinFlag} />
             {

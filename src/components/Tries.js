@@ -1,6 +1,8 @@
+import "./Tries.css"
+
 const Tries = (props) => {
     return (
-        <div>
+        <div className="tries">
             <div>Tries</div>
             <div>{props.tries}</div>
         </div>
