@@ -1,0 +1,13 @@
+.timer__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.seconds {
+    font-size: 3em;
+}
+
+.milliseconds {
+    font-size: 1em;
+}

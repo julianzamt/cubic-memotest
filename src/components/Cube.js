@@ -19,6 +19,7 @@ const Cube = (props) => {
     const [currentCards, setCurrentCards] = useState([])
     const [currentFaces, setCurrentFaces] = useState([])
     const [activeFaces, setActiveFaces] = useState(["front", "back", "right", "left", "top", "bottom"])
+    const [cubeScore, setCubeScore] = useState(0)
 
     const handleClick = (e) => {
         const eventCard = e.target.getAttribute("card")
@@ -54,21 +55,32 @@ const Cube = (props) => {
     }
 
     useEffect(() => {
-        console.log("Score: " + context.score)
-        console.log("currentCard: " + currentCards + "// currentCard.length " + currentCards.length)
-        console.log("currentFaces " + currentFaces)
-
-        // copy state to be used before next render on reset
+        // copy states used them before next render
         let activeFacesSync = activeFaces
+        let tries = props.tries
+        let cubeScoreSync = cubeScore
         if (currentCards.length === 2) {
+            tries = tries - 1
+            props.setTries(tries)
+            console.log(tries)
+
             // If scored
             if (currentCards[0] === currentCards[1]) {
-                context.setScore(context.score + 1)
+                context.setScore(prevState => prevState + 1)
+                cubeScoreSync = cubeScoreSync + 1
+                setCubeScore(cubeScoreSync)
                 const temp = activeFaces.filter(item => item !== currentFaces[0])
                 activeFacesSync = temp.filter(item => item !== currentFaces[1])
                 setActiveFaces(activeFacesSync)
+                if (cubeScoreSync === 3) {
+                    props.setFinalFlag(true)
+                    props.setWinFlag(true)
+                }
             }
-            console.log("ACtive Faces: " + activeFacesSync)
+            else if (tries === 0) {
+                props.setFinalFlag(true)
+            }
+
             // reset cards that are not active
             setTimeout(() => {
                 if (activeFacesSync.includes("front")) { setFrontFlip(false) }
