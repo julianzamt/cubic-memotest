@@ -12,7 +12,7 @@ const Timer = (props) => {
     let initialTimeValue = null
     switch (context.level) {
         case 1:
-            initialTimeValue = 10;
+            initialTimeValue = 20;
             break;
         default:
             initialTimeValue = 10;
@@ -20,23 +20,18 @@ const Timer = (props) => {
     }
 
     const [time, setTime] = useState(initialTimeValue)
-    const [startTime] = useState(new Date())
 
     useEffect(() => {
-        time > 0 && setTimeout(() => setTime(prevState => prevState - 1), 1000);
+        time > -1 && setTimeout(() => setTime(prevState => prevState - 1), 1000);
         if (time === 5) {
             setBeat(true)
         }
     }, [time]);
 
-    if (!time) { props.setFinalFlag(true) }
+    if (time === -1) { props.setFinalFlag(true) }
 
     return (
-        <div className="timer__container">
-            <div>
-                <div className={beat ? "time beat" : "time"}>{time}</div>
-            </div>
-        </div>
+        <div className={beat ? "time beat" : "time"}>{time}</div>
     )
 }
 

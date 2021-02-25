@@ -71,7 +71,7 @@ const Header = (props) => {
 
     return (
         <div className="navbar__container">
-            <Navbar bg="light" expand="lg" collapseOnSelect>
+            <Navbar bg="light" expand="lg" collapseOnSelect >
                 <Navbar.Brand>
                     <img src={logo} alt="logo" height="30" width="30" />
                     <span className="ml-2">Cubic Memotest</span>

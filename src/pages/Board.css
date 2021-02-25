@@ -1,6 +1,6 @@
 .board__container {
   display: grid;
-  grid-template-rows: auto auto 1fr auto;
+  grid-template-rows: 3em 4em 1fr auto;
   position: relative;
 }
 

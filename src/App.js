@@ -16,8 +16,6 @@ const App = () => {
     const [winFlag, setWinFlag] = useState(false)
     const [finalFlag, setFinalFlag] = useState(false)
 
-    const context = useContext(AppContext)
-
     return (
         <GlobalState>
             <div className="app__container">
@@ -27,18 +25,18 @@ const App = () => {
                 />
                 <Switch>
                     <Route exact path='/'>
-                        {/* {finalFlag ?
+                        {finalFlag ?
                             <Final
                                 winFlag={winFlag}
-                            /> : */}
-                        <Board
-                            feedbackFlag={feedbackFlag}
-                            setFeedbackFlag={setFeedbackFlag}
-                            feedbackMessage={feedbackMessage}
-                            setFeedbackMessage={setFeedbackMessage}
-                            setFinalFlag={setFinalFlag}
-                            setWinFlag={setWinFlag}
-                        />
+                            /> :
+                            <Board
+                                feedbackFlag={feedbackFlag}
+                                setFeedbackFlag={setFeedbackFlag}
+                                feedbackMessage={feedbackMessage}
+                                setFeedbackMessage={setFeedbackMessage}
+                                setFinalFlag={setFinalFlag}
+                                setWinFlag={setWinFlag}
+                            />}
                     </Route>
                     <Route exact path='/registro'>
                         <Registro
