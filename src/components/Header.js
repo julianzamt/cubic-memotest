@@ -90,31 +90,30 @@ const Header = (props) => {
                         <Nav className="ml-auto">
                             <Form inline onSubmit={handleSubmit}>
                                 <Form.Group controlId="logIn">
-                                    <Form.Label className="mr-2 nav-input">Login</Form.Label>
+                                    <Form.Label className="mr-2 login-label">Login</Form.Label>
                                     <FormControl
                                         name="email"
                                         value={form.email}
-                                        placeholder="email"
+                                        placeholder="Email"
                                         aria-label="email"
-                                        className="mr-2 nav-input"
+                                        className="mr-2 nav-input toggle"
                                         onChange={handleChange}
                                     />
                                     <FormControl
                                         placeholder="Password"
                                         aria-label="password"
                                         type="password"
-                                        className="nav-input"
+                                        className="nav-input toggle"
                                         onChange={handleChange}
                                         name="password"
                                         value={form.password}
                                     />
+                                    {spinner ? <Spinner className="mr-2 ml-2" animation="grow" variant="success" size="sm" /> :
+                                        <button className="button mr-2" type="submit"><NavigateNextIcon color="action" /></button>}
                                 </Form.Group>
-                                {spinner ? <Spinner className="mr-2 ml-2" animation="grow" variant="success" size="sm" /> :
-                                    <button className="button mr-2" type="submit"><NavigateNextIcon color="action" /></button>}
-
 
                             </Form>
-                            <Navbar.Text className="register">Don´t have an account?</Navbar.Text><Nav.Link as={Link} to={'/registro'} className="register" >Register Here</Nav.Link>
+                            <div className="register__text"><Navbar.Text className="register">Don´t have an account? &nbsp;</Navbar.Text><Nav.Link as={Link} to={'/registro'} className="register" >Register Here</Nav.Link></div>
                         </Nav>
                     }
                 </Navbar.Collapse>

@@ -1,6 +1,7 @@
 .board__container {
   display: grid;
-  grid-template-rows: 3em 4em 1fr auto;
+  height: 100%;
+  grid-template-rows: 3em 4em 1fr auto auto;
   position: relative;
 }
 
@@ -12,8 +13,8 @@
 }
 
 .guest-advice {
-  position: relative;
-  bottom: 3em;
+  font-size: small;
+  margin-bottom: 0.5em;
   text-align: center;
 }
 

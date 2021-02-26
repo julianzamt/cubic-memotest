@@ -4,6 +4,7 @@
 
 .register {
     font-size: 0.8em !important;
+    display: inline-block !important;
 }
 
 .nav-input {
@@ -11,6 +12,14 @@
     height: 2em !important; 
     padding-left: .325rem  !important;
     color: grey;
+    margin-bottom: 0 !important;
+}
+
+.login-label {
+    font-size: 0.9em !important;
+    height: 2em !important; 
+    color: grey;
+    margin-bottom: 0 !important;
 }
 
 .greeting {
@@ -48,4 +57,30 @@
 
 .hamburguer__button {
     padding: 0 0.8em !important;
+}
+
+.form-group {
+    margin-bottom: 0 !important;
+}
+
+/* navbar when collapsed */
+@media (max-width: 480px){
+    .toggle {
+        display: inline-block !important; 
+        width: 35% !important;
+    }
+    .form-group {
+        margin-top: 0.5em !important;
+        margin-bottom: 0 !important;
+        text-align: center;
+    }
+    .register__text{
+        text-align: center;
+    }
+    .navbar-text {
+        padding: 0.1em !important;
+    }
+    .nav-link {
+        padding: 0.1em !important;
+    }
 }
