@@ -5,8 +5,15 @@ import "./Final.css"
 const Final = (props) => {
     const context = useContext(AppContext)
 
-    const handleClick = () => {
+    const handleStart = () => {
         props.setFinalFlag(false)
+        props.setWinFlag(false)
+    }
+
+    const handleExit = () => {
+        props.setFinalFlag(false)
+        props.setWinFlag(false)
+        props.setInitialScreenFlag(true)
     }
 
     return (
@@ -16,13 +23,15 @@ const Final = (props) => {
                     <div>
                         <div>Win!</div>
                         <div>:)</div>
-                        <div onClick={handleClick} className="play-again">Click to play again</div>
+                        <div onClick={handleStart} className="play-again">Click to play again</div>
+                        <div onClick={handleExit} className="play-again">Exit Game</div>
                     </div>
                     :
                     <div>
                         <div>Loose</div>
                         <div>:(</div>
-                        <div onClick={handleClick} className="play-again">Click to play again</div>
+                        <div onClick={handleStart} className="play-again">Click to play again</div>
+                        <div onClick={handleExit} className="play-again">Exit Game</div>
                     </div>
 
             }

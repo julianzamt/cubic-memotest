@@ -1,0 +1,47 @@
+:root {
+    --little-cube-edge: 70px;
+}
+
+.little__scene {
+    width: 70px;
+    height: 70px;
+    perspective: 300px;
+}
+  
+.little__cube {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transform: rotate3d(1,1,0, 45deg);
+    animation: rotate 20s linear infinite;
+    animation-fill-mode: both;
+}
+
+@keyframes rotate {
+    50% { transform: rotateX(360deg) rotateY(360deg)}
+    100% {transform: rotate3d(1,1,0, 45deg)}
+  }
+
+.little__cube__face {
+    position: absolute;
+    width: var(--little-cube-edge);
+    height: var(--little-cube-edge);
+    border: 0.5px solid black;
+}
+
+.little__cube__face:nth-child(1) { 
+    transform: translateZ(calc(0.5*var(--little-cube-edge))); 
+    background-color: rgba(239, 71, 111, 0.8)
+}
+.little__cube__face:nth-child(2) { transform: rotateY( 90deg) translateZ(calc(0.5*var(--little-cube-edge))); 
+    background-color:rgba(188, 150, 230, 0.8)}
+.little__cube__face:nth-child(3) { transform: rotateY(180deg) translateZ(calc(0.5*var(--little-cube-edge))); 
+    background-color: rgba(255, 209, 102, 0.8)}
+.little__cube__face:nth-child(4) { transform: rotateY(-90deg) translateZ(calc(0.5*var(--little-cube-edge))); 
+    background-color: rgba(6, 214, 160, 0.8)}
+.little__cube__face:nth-child(5) { transform: rotateX( 90deg) translateZ(calc(0.5*var(--little-cube-edge))); 
+    background-color: rgba(5, 102, 141, 0.8)}
+.little__cube__face:nth-child(6) { transform: rotateX(-90deg) translateZ(calc(0.5*var(--little-cube-edge))); 
+    background-color: rgba(157, 195, 194, 0.8)}
+

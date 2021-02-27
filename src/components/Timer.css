@@ -3,6 +3,7 @@
     font-size: 5em;
     text-align: center;
     font-family: uaSquare;
+    user-select: none;
 }
 
 .time.beat {

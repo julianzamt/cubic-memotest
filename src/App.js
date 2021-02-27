@@ -6,6 +6,7 @@ import GlobalState from "./context/GlobalState"
 import Registro from "./pages/Registro"
 import { Route, Switch } from "react-router"
 import AppContext from "./context/AppContext"
+import InitialScreen from "./pages/InitialScreen"
 import Final from "./pages/Final"
 import "./App.css"
 
@@ -15,6 +16,7 @@ const App = () => {
     const [feedbackMessage, setFeedbackMessage] = useState(null)
     const [winFlag, setWinFlag] = useState(false)
     const [finalFlag, setFinalFlag] = useState(false)
+    const [initialScreenFlag, setInitialScreenFlag] = useState(true)
 
     return (
         <GlobalState>
@@ -25,18 +27,23 @@ const App = () => {
                 />
                 <Switch>
                     <Route exact path='/'>
-                        {/* {finalFlag ?
-                            <Final
-                                winFlag={winFlag}
-                                setFinalFlag={setFinalFlag}
-                            /> : */}
-                        <Board
-                            feedbackFlag={feedbackFlag}
-                            setFeedbackFlag={setFeedbackFlag}
-                            feedbackMessage={feedbackMessage}
-                            setFeedbackMessage={setFeedbackMessage}
-                            setFinalFlag={setFinalFlag}
-                            setWinFlag={setWinFlag} />
+                        {
+                            initialScreenFlag ? <InitialScreen setInitialScreenFlag={setInitialScreenFlag} /> :
+                                finalFlag ?
+                                    <Final
+                                        winFlag={winFlag}
+                                        setWinFlag={setWinFlag}
+                                        setFinalFlag={setFinalFlag}
+                                        setInitialScreenFlag={setInitialScreenFlag}
+                                    /> :
+                                    <Board
+                                        feedbackFlag={feedbackFlag}
+                                        setFeedbackFlag={setFeedbackFlag}
+                                        feedbackMessage={feedbackMessage}
+                                        setFeedbackMessage={setFeedbackMessage}
+                                        setFinalFlag={setFinalFlag}
+                                        setWinFlag={setWinFlag} />
+                        }
                     </Route>
                     <Route exact path='/registro'>
                         <Registro
