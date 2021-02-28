@@ -2,10 +2,18 @@ import React, { useState, useEffect, useContext, useRef } from "react"
 import AppContext from "../context/AppContext"
 import logo from "../img/cube-outline.svg"
 import "./Cube.css"
-import { cubeFrancellas } from "../helpers/randomFrancellas"
+import { sortCubeCards } from "../helpers/randomFrancellas"
 
 const Cube = (props) => {
     const context = useContext(AppContext)
+
+    // Sort cards on game start
+    const [cubeFrancellas, setCubeFrancellas] = useState(sortCubeCards)
+
+    useEffect(() => {
+        setCubeFrancellas(sortCubeCards)
+        console.log(cubeFrancellas)
+    }, [context.init])
 
     // Each card flip state
     const [frontFlip, setFrontFlip] = useState(false)
@@ -85,11 +93,15 @@ const Cube = (props) => {
                     setTimeout(() => {
                         props.setWinFlag(true)
                         props.setFinalFlag(true)
+                        context.setInit(false)
                     }, 1500)
                 }
             }
             else if (tries === 0) {
-                setTimeout(() => { props.setFinalFlag(true) }, 1500)
+                setTimeout(() => {
+                    props.setFinalFlag(true)
+                    context.setInit(false)
+                }, 1500)
             }
 
             // reset active cards

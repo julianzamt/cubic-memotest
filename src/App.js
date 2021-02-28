@@ -11,6 +11,7 @@ import Final from "./pages/Final"
 import "./App.css"
 
 const App = () => {
+
     // Lifted states for user feedback on registration and login
     const [feedbackFlag, setFeedbackFlag] = useState(false)
     const [feedbackMessage, setFeedbackMessage] = useState(null)
@@ -24,17 +25,30 @@ const App = () => {
                 <Header
                     setFeedbackFlag={setFeedbackFlag}
                     setFeedbackMessage={setFeedbackMessage}
+                    initialScreenFlag={initialScreenFlag}
                 />
                 <Switch>
                     <Route exact path='/'>
                         {
-                            initialScreenFlag ? <InitialScreen setInitialScreenFlag={setInitialScreenFlag} /> :
+                            initialScreenFlag ?
+                                <InitialScreen
+                                    setInitialScreenFlag={setInitialScreenFlag}
+                                    feedbackFlag={feedbackFlag}
+                                    setFeedbackFlag={setFeedbackFlag}
+                                    feedbackMessage={feedbackMessage}
+                                    setFeedbackMessage={setFeedbackMessage}
+                                    setFinalFlag={setFinalFlag}
+                                /> :
                                 finalFlag ?
                                     <Final
                                         winFlag={winFlag}
                                         setWinFlag={setWinFlag}
                                         setFinalFlag={setFinalFlag}
                                         setInitialScreenFlag={setInitialScreenFlag}
+                                        feedbackFlag={feedbackFlag}
+                                        setFeedbackFlag={setFeedbackFlag}
+                                        feedbackMessage={feedbackMessage}
+                                        setFeedbackMessage={setFeedbackMessage}
                                     /> :
                                     <Board
                                         feedbackFlag={feedbackFlag}
@@ -42,13 +56,16 @@ const App = () => {
                                         feedbackMessage={feedbackMessage}
                                         setFeedbackMessage={setFeedbackMessage}
                                         setFinalFlag={setFinalFlag}
-                                        setWinFlag={setWinFlag} />
+                                        setWinFlag={setWinFlag}
+                                    />
                         }
                     </Route>
                     <Route exact path='/registro'>
                         <Registro
                             setFeedbackFlag={setFeedbackFlag}
                             setFeedbackMessage={setFeedbackMessage}
+                            initialScreenFlag={initialScreenFlag}
+                            setInitialScreenFlag={setInitialScreenFlag}
                         />
                     </Route>
                 </Switch>
