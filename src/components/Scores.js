@@ -7,8 +7,8 @@ const Scores = () => {
 
     return (
         <div className="scores__container">
-            <div className="scores">Score {context.score}</div>
-            <div className="scores">Highscore 0000</div>
+            <div>Score {context.score}</div>
+            <div>Highscore 0000</div>
         </div>
     )
 }

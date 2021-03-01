@@ -101,3 +101,10 @@
 .card__object.lockCards {
   pointer-events: none;
 }
+
+/* Tablets and Beyond*/
+@media (min-width: 480px){
+  .cube {
+    font-size: 6vmin;
+  }
+}

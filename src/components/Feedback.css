@@ -6,3 +6,10 @@
   margin-bottom: 0.5em;
   text-align: center;
 }
+
+/* Tablets and Beyond*/
+@media (min-width: 480px){
+  .feedback__container{
+    font-size: 1.2em;
+  }
+}

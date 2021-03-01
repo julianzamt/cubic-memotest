@@ -10,9 +10,9 @@ const InitialScreen = (props) => {
 
     return (
         <div className="initialScreen__container">
-            <div>
-                <h4 style={{ textAlign: "center" }}>Welcome to</h4>
-                <h1>Cubic Memotest</h1>
+            <div style={{ textAlign: "center" }}>
+                <h4 className="welcome__h4">Welcome to</h4>
+                <h1 className="welcome__h1">Cubic Memotest</h1>
             </div>
             <LittleCube />
             <button className="start__button" onClick={initialize}>Click to start</button>

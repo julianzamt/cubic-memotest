@@ -3,8 +3,8 @@
 }
 
 .little__scene {
-    width: 70px;
-    height: 70px;
+    width: var(--little-cube-edge);
+    height: var(--little-cube-edge);
     perspective: 300px;
 }
   
@@ -45,3 +45,9 @@
 .little__cube__face:nth-child(6) { transform: rotateX(-90deg) translateZ(calc(0.5*var(--little-cube-edge))); 
     background-color: rgba(157, 195, 194, 0.8)}
 
+/* Tablets and Beyond*/
+@media (min-width: 480px){
+    :root {
+        --little-cube-edge: 15vmin;
+    }
+  }
