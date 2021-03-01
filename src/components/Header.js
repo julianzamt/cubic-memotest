@@ -71,7 +71,7 @@ const Header = (props) => {
 
     return (
         <div className="navbar__container">
-            <Navbar bg="light" expand="lg" collapseOnSelect >
+            <Navbar bg="light" expand="lg">
                 <Navbar.Brand>
                     <img src={logo} alt="logo" height="30" width="30" />
                     <span className="ml-2">Cubic Memotest</span>
@@ -80,8 +80,8 @@ const Header = (props) => {
                 <Navbar.Collapse id="basic-navbar-nav">
                     {
                         context.login &&
-                        <Nav className="greeting">
-                            {context.username !== null ? <Navbar.Text className="username">Hi there, {context.username}</Navbar.Text> : <Navbar.Text className="username welcome">Welcome!</Navbar.Text>}
+                        <Nav className="greeting toggle-logged">
+                            {context.username !== null ? <Navbar.Text className="username">Hi there, {context.username}</Navbar.Text> : <Navbar.Text className="username welcome toggle-logged">Welcome!</Navbar.Text>}
                             <Nav.Link onClick={logout}><span className="logout">| Logout </span></Nav.Link>
                         </Nav>
                     }

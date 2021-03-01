@@ -26,16 +26,10 @@ const Board = (props) => {
     return (
         <div className="board__container">
             <Scores />
-            {props.feedbackFlag ? <Feedback setFeedbackFlag={props.setFeedbackFlag} feedbackMessage={props.feedbackMessage} setFeedbackMessage={props.setFeedbackMessage} feedbackFlag={props.feedbackFlag} /> : null}
             <Timer setFinalFlag={props.setFinalFlag} />
             <Cube tries={tries} setTries={setTries} setFinalFlag={props.setFinalFlag} setWinFlag={props.setWinFlag} />
             <Tries tries={tries} />
-            {
-                !context.login &&
-                <div className="guest-advice">
-                    Currently playing as <b>Guest</b>. Login for track your scores.
-                </div>
-            }
+            {props.feedbackFlag || !context.login ? <Feedback setFeedbackFlag={props.setFeedbackFlag} feedbackMessage={props.feedbackMessage} setFeedbackMessage={props.setFeedbackMessage} feedbackFlag={props.feedbackFlag} /> : null}
         </div>
     )
 }

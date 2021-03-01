@@ -74,6 +74,7 @@ function Registro(props) {
                             setSpinner(false)
                             props.setFeedbackFlag(true)
                             props.setFeedbackMessage("Succesfully registered and logged in.")
+                            props.setInitialScreenFlag(true)
                             history.push("/")
                         })
                 })
@@ -99,18 +100,18 @@ function Registro(props) {
     }
 
     return (
-        <div className="container mt-3 text-center">
-            <h2>Welcome to Cubic Memotest</h2>
+        <div className="register__container mt-3 text-center">
+            <h2>User registration</h2>
             {error ? <Alert variant="danger">{errorMessage}</Alert> : null}
-            <Form onSubmit={handleSubmit}>
-                <Form.Control type="text" name="username" value={form.username} placeholder="Choose a username" onChange={handleChange} /><br></br>
-                <Form.Control type="email" name="email" value={form.email} placeholder="Email" onChange={handleChange} /><br></br>
-                <Form.Control type="password" name="password" value={form.password} placeholder="Password (6+ characters)" onChange={handleChange} /><br></br>
-                <Form.Control type="password" name="confirmation" value={form.confirmation} placeholder="Password confirmation" onChange={handleChange} /><br></br>
+            <Form onSubmit={handleSubmit} >
+                <Form.Control className="register__input" type="text" name="username" value={form.username} placeholder="Choose a username" onChange={handleChange} autofocus />
+                <Form.Control className="register__input" type="email" name="email" value={form.email} placeholder="Email" onChange={handleChange} />
+                <Form.Control className="register__input" type="password" name="password" value={form.password} placeholder="Password (6+ characters)" onChange={handleChange} />
+                <Form.Control className="register__input" type="password" name="confirmation" value={form.confirmation} placeholder="Password confirmation" onChange={handleChange} />
                 <Button variant="primary" type="submit">Register
             {spinner ? <Spinner animation="grow" variant="success" size="sm" className="ml-2" /> : null} </Button>
             </Form>
-            <div className="back__container"><Link to="/" className="back__sign"><ArrowBackIcon /> Back to board</Link></div>
+            <Link to="/" className="back__sign"><ArrowBackIcon /> Back to board</Link>
         </div>
     )
 }

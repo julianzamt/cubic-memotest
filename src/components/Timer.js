@@ -28,10 +28,13 @@ const Timer = (props) => {
         }
     }, [time]);
 
-    if (time === -1) { props.setFinalFlag(true) }
+    // if (time === -1) { props.setFinalFlag(true) }
 
     return (
-        <div className={beat ? "time beat" : "time"}>{time}</div>
+        <div className="timer__container">
+            <div className="timer__text">Time</div>
+            <div className={beat ? "time beat" : "time"}>{time}</div>
+        </div>
     )
 }
 

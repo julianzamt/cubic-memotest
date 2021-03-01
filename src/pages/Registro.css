@@ -1,5 +1,13 @@
-.back__container {
-    margin: 2em;
+.register__container {
+    margin: 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.register__input {
+    margin-bottom: 1.5em;
 }
 
 .back__sign {

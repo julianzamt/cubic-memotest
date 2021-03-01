@@ -16,7 +16,7 @@
   top: 52%; left: 50%; 
   transform-style: preserve-3d; 
   /* Here rotation takes place: var(--p) is a chained rotated3d with the new coordinates */
-  transform: rotate3d(var(--i), var(--j), 0, var(--a)) var(--p, ); 
+  transform: rotate3d(var(--i, 0.7), var(--j, 1), 0, var(--a, 45deg)) var(--p, ); 
 }
 
 [class*='cube__face']:nth-child(n + 5) { --i: 1; --j: 0 }
@@ -100,4 +100,11 @@
 
 .card__object.lockCards {
   pointer-events: none;
+}
+
+/* Tablets and Beyond*/
+@media (min-width: 480px){
+  .cube {
+    font-size: 6vmin;
+  }
 }
