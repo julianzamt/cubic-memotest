@@ -6,15 +6,18 @@ import GlobalState from "./context/GlobalState"
 import Registro from "./pages/Registro"
 import { Route, Switch } from "react-router"
 import AppContext from "./context/AppContext"
+import InitialScreen from "./pages/InitialScreen"
 import Final from "./pages/Final"
 import "./App.css"
 
 const App = () => {
+
     // Lifted states for user feedback on registration and login
     const [feedbackFlag, setFeedbackFlag] = useState(false)
     const [feedbackMessage, setFeedbackMessage] = useState(null)
     const [winFlag, setWinFlag] = useState(false)
     const [finalFlag, setFinalFlag] = useState(false)
+    const [initialScreenFlag, setInitialScreenFlag] = useState(true)
 
     return (
         <GlobalState>
@@ -22,26 +25,48 @@ const App = () => {
                 <Header
                     setFeedbackFlag={setFeedbackFlag}
                     setFeedbackMessage={setFeedbackMessage}
+                    initialScreenFlag={initialScreenFlag}
                 />
                 <Switch>
                     <Route exact path='/'>
-                        {/* {finalFlag ?
-                            <Final
-                                winFlag={winFlag}
-                                setFinalFlag={setFinalFlag}
-                            /> : */}
-                        <Board
-                            feedbackFlag={feedbackFlag}
-                            setFeedbackFlag={setFeedbackFlag}
-                            feedbackMessage={feedbackMessage}
-                            setFeedbackMessage={setFeedbackMessage}
-                            setFinalFlag={setFinalFlag}
-                            setWinFlag={setWinFlag} />
+                        {
+                            initialScreenFlag ?
+                                <InitialScreen
+                                    setInitialScreenFlag={setInitialScreenFlag}
+                                    feedbackFlag={feedbackFlag}
+                                    setFeedbackFlag={setFeedbackFlag}
+                                    feedbackMessage={feedbackMessage}
+                                    setFeedbackMessage={setFeedbackMessage}
+                                    setFinalFlag={setFinalFlag}
+                                /> :
+                                finalFlag ?
+                                    <Final
+                                        winFlag={winFlag}
+                                        setWinFlag={setWinFlag}
+                                        setFinalFlag={setFinalFlag}
+                                        setInitialScreenFlag={setInitialScreenFlag}
+                                        feedbackFlag={feedbackFlag}
+                                        setFeedbackFlag={setFeedbackFlag}
+                                        feedbackMessage={feedbackMessage}
+                                        setFeedbackMessage={setFeedbackMessage}
+                                    /> :
+                                    <Board
+                                        feedbackFlag={feedbackFlag}
+                                        setFeedbackFlag={setFeedbackFlag}
+                                        feedbackMessage={feedbackMessage}
+                                        setFeedbackMessage={setFeedbackMessage}
+                                        setFinalFlag={setFinalFlag}
+                                        setWinFlag={setWinFlag}
+                                        winFlag={winFlag}
+                                    />
+                        }
                     </Route>
                     <Route exact path='/registro'>
                         <Registro
                             setFeedbackFlag={setFeedbackFlag}
                             setFeedbackMessage={setFeedbackMessage}
+                            initialScreenFlag={initialScreenFlag}
+                            setInitialScreenFlag={setInitialScreenFlag}
                         />
                     </Route>
                 </Switch>

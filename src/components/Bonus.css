@@ -1,0 +1,29 @@
+.bonus__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid lightgray;
+    border-radius: 25px;
+    padding: 1em;
+}
+
+.bonus__title {
+    font-family: manaspace;
+    color: rgb(201, 7, 7);
+    font-size: 7vmin;
+}
+
+.bonus__points {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    justify-content: space-between;
+    font-family: uaSquare;
+    font-size: 5vmin;
+}
+
+.points {
+    justify-self: flex-end;
+}
+

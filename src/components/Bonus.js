@@ -1,0 +1,36 @@
+import React, { useContext, useState, useEffect } from "react"
+import AppContext from "../context/AppContext"
+import "./Bonus.css"
+
+const Bonus = (props) => {
+
+    const context = useContext(AppContext)
+
+    const triesLeftPoints = props.tries * 500
+    const timeLeftPoints = props.time * 100
+
+    const totalBonusPoints = props.levelClearPoints + triesLeftPoints + timeLeftPoints
+
+    useEffect(() => {
+        context.setScore(context.score + totalBonusPoints)
+        setTimeout(() => {
+            props.setFinalFlag(true)
+            context.setInit(false)
+        }, 5000)
+    }, [])
+
+    return (
+        <div className="bonus__container">
+            <h3 className="bonus__title">Stage {context.level} Cleared!</h3>
+            <div className="bonus__points">
+                <div>Level completed</div> <div className="points">{props.levelClearPoints} pts</div>
+                <div>{props.tries} tries left</div> <div className="points">{triesLeftPoints} pts</div>
+                <div>{props.time} seconds left</div> <div className="points">{timeLeftPoints} pts</div>
+                <hr /> <hr />
+                <div>Total bonus</div> <div className="points">{totalBonusPoints} pts</div>
+            </div>
+        </div>
+    )
+}
+
+export default Bonus

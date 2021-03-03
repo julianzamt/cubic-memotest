@@ -1,38 +1,9 @@
 
-
-@font-face {
-  font-family: Square;
-  src: url(./fonts/square-sans-serif-7/square_sans_serif_7.ttf)
-}
-@font-face {
-  font-family: geoFill;
-  src: url(./fonts/geostar-fill/GeostarFill-Regular.ttf)
-}
-@font-face {
-  font-family: leningrad;
-  src: url(./fonts/leningrad-disco/LeningradDisco.ttf)
-}
-@font-face {
-  font-family: novaSquare;
-  src: url(./fonts/nova-square/NovaSquare.ttf)
-}
-@font-face {
-  font-family: squareRoot;
-  src: url(./fonts/sf-square-root/TrueType/SFSquareRoot.ttf)
-}
-
-@font-face {
-  font-family: fffForward;
-  src: url(./fonts/fff-forward/FFFFORWA.TTF)
-}
 @font-face {
   font-family: uaSquare;
   src: url(./fonts/ua-squared/UASQUARE.TTF)
 }
-@font-face {
-  font-family: 256Bytes;
-  src: url(./fonts/256-bytes/256\ bytes.ttf)
-}
+
 @font-face {
   font-family: pressStart;
   src: url(./fonts/press-start/prstart.ttf)

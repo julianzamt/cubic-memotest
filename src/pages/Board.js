@@ -6,36 +6,42 @@ import Timer from "../components/Timer"
 import Tries from "../components/Tries"
 import Feedback from "../components/Feedback"
 import Scores from "../components/Scores"
+import Bonus from "../components/Bonus"
 
 const Board = (props) => {
 
     const context = useContext(AppContext)
 
-    // Lifted State for use it in <Current Figure /> and <Tries />
-    let initialTriesValue = null;
+    // Lifted states for use in Timer, Tries, Bonus & level setup
+    let levelTries = null
+    let levelTime = null
+    let levelClearPoints = null
     switch (context.level) {
         case 1:
-            initialTriesValue = 6
+            levelTries = 6
+            levelTime = 20
+            levelClearPoints = 1000
             break
         default:
-            initialTriesValue = 6
+            levelTries = 6
+            levelTime = 20
+            levelClearPoints = 1000
             break
     }
-    const [tries, setTries] = useState(initialTriesValue)
+    const [tries, setTries] = useState(levelTries)
+    const [time, setTime] = useState(levelTime)
 
     return (
         <div className="board__container">
             <Scores />
-            {props.feedbackFlag ? <Feedback setFeedbackFlag={props.setFeedbackFlag} feedbackMessage={props.feedbackMessage} setFeedbackMessage={props.setFeedbackMessage} feedbackFlag={props.feedbackFlag} /> : null}
-            <Timer setFinalFlag={props.setFinalFlag} />
-            <Cube tries={tries} setTries={setTries} setFinalFlag={props.setFinalFlag} setWinFlag={props.setWinFlag} />
+            <Timer setFinalFlag={props.setFinalFlag} time={time} setTime={setTime} winFlag={props.winFlag} />
+            <div className="object__container">
+                {props.winFlag ? <Bonus setFinalFlag={props.setFinalFlag} time={time} tries={tries} levelClearPoints={levelClearPoints} /> :
+                    <Cube tries={tries} setTries={setTries} setFinalFlag={props.setFinalFlag} setWinFlag={props.setWinFlag} />
+                }
+            </div>
             <Tries tries={tries} />
-            {
-                !context.login &&
-                <div className="guest-advice">
-                    Currently playing as <b>Guest</b>. Login for track your scores.
-                </div>
-            }
+            {props.feedbackFlag || !context.login ? <Feedback setFeedbackFlag={props.setFeedbackFlag} feedbackMessage={props.feedbackMessage} setFeedbackMessage={props.setFeedbackMessage} feedbackFlag={props.feedbackFlag} /> : null}
         </div>
     )
 }

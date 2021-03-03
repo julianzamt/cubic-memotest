@@ -1,6 +1,8 @@
 .tries__container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
     font-family: uaSquare;
     user-select: none;
 }
@@ -13,10 +15,28 @@
     font-size: 5em;
     color: gray;
     animation: beat 0.6s;
-    text-align: center;
 }
 
 @keyframes beat {
     0%{opacity: 0; transform: scale(0.8)}
     100%{opacity: 1; transform: scale(1);}
+}
+
+/* Tablets and Beyond*/
+@media (min-width: 480px){
+    .tries__text {
+        font-size: 4vmin;
+    }
+    .tries__number {
+        font-size: 16vmin;
+    }
+  }
+
+@media (min-width: 800px){
+    .tries__text {
+        font-size: 6vmin;
+    }
+    .tries__number {
+        font-size: 20vmin;
+    }
 }

@@ -2,10 +2,18 @@ import React, { useState, useEffect, useContext, useRef } from "react"
 import AppContext from "../context/AppContext"
 import logo from "../img/cube-outline.svg"
 import "./Cube.css"
-import { cubeFrancellas } from "../helpers/randomFrancellas"
+import { sortCubeCards } from "../helpers/randomFrancellas"
 
 const Cube = (props) => {
     const context = useContext(AppContext)
+
+    // Sort cards on game start
+    const [cubeFrancellas, setCubeFrancellas] = useState(sortCubeCards)
+
+    useEffect(() => {
+        setCubeFrancellas(sortCubeCards)
+        console.log(cubeFrancellas)
+    }, [context.init])
 
     // Each card flip state
     const [frontFlip, setFrontFlip] = useState(false)
@@ -25,6 +33,10 @@ const Cube = (props) => {
 
     // Prevent more than 2 cards being picked simultaneously
     const [lockCards, setLockCards] = useState(false)
+
+    // Final animations
+    const [winAnimation, setWinAnimation] = useState(false)
+    const [looseAnimation, setLooseAnimation] = useState(false)
 
     const handleClick = (e) => {
         const eventCard = e.target.getAttribute("card")
@@ -72,7 +84,7 @@ const Cube = (props) => {
             // If scored
             if (currentCards[0] === currentCards[1]) {
                 // Game Scores
-                context.setScore(prevState => prevState + 1)
+                context.setScore(prevState => prevState + 100)
                 // Internal Score
                 internalScoreSync = internalScoreSync + 1
                 setInternalScore(internalScoreSync)
@@ -81,15 +93,13 @@ const Cube = (props) => {
                 activeFacesSync = temp.filter(item => item !== currentFaces[1])
                 setActiveFaces(activeFacesSync)
 
-                if (internalScoreSync === 3) {
-                    setTimeout(() => {
-                        props.setWinFlag(true)
-                        props.setFinalFlag(true)
-                    }, 1500)
-                }
+                if (internalScoreSync === 3) { props.setWinFlag(true) }
             }
             else if (tries === 0) {
-                setTimeout(() => { props.setFinalFlag(true) }, 1500)
+                setTimeout(() => {
+                    props.setFinalFlag(true)
+                    context.setInit(false)
+                }, 1500)
             }
 
             // reset active cards
@@ -168,8 +178,8 @@ const Cube = (props) => {
             onTouchMove={rotate}
             onTouchEnd={release}
         >
-            <div className="cube" ref={_C}>
-                <div className="cube__face cube__face--front">
+            <div className={`cube ${winAnimation ? "win__animation" : null}`} ref={_C}>
+                <div className={`cube__face cube__face--front`}>
                     <div className="card__scene">
                         <div className={`card__object ${frontFlip ? "is-flipped" : null} ${lockCards ? "lockCards" : null}`} >
                             <div className="card__face card__face--front" onClick={handleClick} card={cubeFrancellas[0]} face="front">
