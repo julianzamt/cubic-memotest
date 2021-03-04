@@ -9,6 +9,7 @@
 .time {
     color:gray;
     font-size: 5em;
+    will-change: opacity, transform;
 }
 
 .timer__text {
@@ -16,7 +17,7 @@
 }
 
 .time.beat {
-    animation: beat 1s;
+    animation: beat 1s ease;
     animation-iteration-count: 6;
 }
 

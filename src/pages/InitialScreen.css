@@ -22,9 +22,9 @@
     }
     .start__button {
         font-size: 1.5em;
-        transition: box-shadow 0.5s;
+        transition: box-shadow 0.2s;
     }
     .start__button:hover {
-        box-shadow: 3px 3px 7px 0px rgba(0,0,0,0.25)
+        box-shadow: 1px 1px 7px 0px rgba(0,0,0,0.25)
     }
   }

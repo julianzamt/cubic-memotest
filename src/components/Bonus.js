@@ -13,11 +13,12 @@ const Bonus = (props) => {
 
     useEffect(() => {
         context.setScore(context.score + totalBonusPoints)
-        setTimeout(() => {
-            props.setFinalFlag(true)
-            context.setInit(false)
-        }, 5000)
     }, [])
+
+    const handleClick = () => {
+        props.setFinalFlag(true)
+        context.setInit(false)
+    }
 
     return (
         <div className="bonus__container">
@@ -29,6 +30,7 @@ const Bonus = (props) => {
                 <hr /> <hr />
                 <div>Total bonus</div> <div className="points">{totalBonusPoints} pts</div>
             </div>
+            <button className="bonus__button" onClick={handleClick}>Continue</button>
         </div>
     )
 }
