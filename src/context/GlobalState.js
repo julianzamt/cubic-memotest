@@ -16,8 +16,8 @@ const GlobalState = (props) => {
         localStorage.setItem("login", true)
     }
     const logoutUser = () => {
-        setLogin(false)
         localStorage.clear()
+        setLogin(false)
         setUsername(null)
         history.push("/")
     }

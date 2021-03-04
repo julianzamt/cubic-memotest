@@ -25,11 +25,10 @@ function Registro(props) {
     const history = useHistory()
     const context = useContext(AppContext)
 
-    let userId = ""
-
     function handleSubmit(e) {
         setSpinner(true)
         setError(false)
+        const username = form.username
         const email = form.email
         const password = form.password
         const confirmation = form.confirmation
@@ -50,33 +49,27 @@ function Registro(props) {
         else {
             firebase.auth.createUserWithEmailAndPassword(email, password)
                 .then((data) => {
-                    firebase.db.collection("Usuarios").add({
-                        username: form.username,
-                        email: form.email,
-                        userId: data.user.uid
+                    firebase.db.collection("Usuarios").doc(data.user.uid).set({
+                        username: username,
+                        email: email,
+                        maxScore: 0,
                     })
                 })
-                .then(() => {
-                    const email = form.email
-                    const password = form.password
-                    return (firebase.auth.signInWithEmailAndPassword(email, password))
-                        .then((data) => {
-                            context.loginUser()
-                            userId = data.user.uid
-                            return (firebase.db.collection("Usuarios").where("userId", "==", userId).get())
-                        })
-                        .then((querySnapshot) => {
-                            const data = querySnapshot.docs.map((doc) => ({
-                                ...doc.data()
-                            }))
-                            localStorage.setItem("username", data[0].username)
-                            context.setUsername(localStorage.getItem("username"))
-                            setSpinner(false)
-                            props.setFeedbackFlag(true)
-                            props.setFeedbackMessage("Succesfully registered and logged in.")
-                            props.setInitialScreenFlag(true)
-                            history.push("/")
-                        })
+                .then(() => { return (firebase.auth.signInWithEmailAndPassword(email, password)) })
+                .then((data) => {
+                    context.loginUser()
+                    return (firebase.db.collection("Usuarios").doc(data.user.uid).get())
+                })
+                .then((data) => {
+                    let user = data.data()
+                    localStorage.setItem("username", user["username"])
+                    localStorage.setItem("maxScore", user["maxScore"])
+                    context.setUsername(localStorage.getItem("username"))
+                    setSpinner(false)
+                    props.setFeedbackFlag(true)
+                    props.setFeedbackMessage("Succesfully registered and logged in.")
+                    props.setInitialScreenFlag(true)
+                    history.push("/")
                 })
                 .catch((err) => {
                     setError(true)

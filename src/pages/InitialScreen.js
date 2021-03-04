@@ -3,7 +3,7 @@ import "./InitialScreen.css"
 import Feedback from "../components/Feedback";
 
 const InitialScreen = (props) => {
-    function initialize() {
+    function handleClick() {
         props.setInitialScreenFlag(false)
         props.setFinalFlag(false)
     }
@@ -15,7 +15,7 @@ const InitialScreen = (props) => {
                 <h1 className="welcome__h1">Cubic Memotest</h1>
             </div>
             <LittleCube />
-            <button className="start__button" onClick={initialize}>Click to start</button>
+            <button className="start__button" onClick={handleClick}>Start</button>
             {props.feedbackFlag ? <Feedback setFeedbackFlag={props.setFeedbackFlag} feedbackMessage={props.feedbackMessage} setFeedbackMessage={props.setFeedbackMessage} feedbackFlag={props.feedbackFlag} /> : null}
         </div>
     )

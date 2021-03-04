@@ -3,6 +3,7 @@ import AppContext from "../context/AppContext"
 import logo from "../img/cube-outline.svg"
 import "./Cube.css"
 import { sortCubeCards } from "../helpers/randomFrancellas"
+import firebase from '../config/firebase'
 
 const Cube = (props) => {
     const context = useContext(AppContext)
