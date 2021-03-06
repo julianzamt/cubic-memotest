@@ -16,7 +16,7 @@
 
 .bonus__points {
     display: grid;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-rows: repeat(6, 1fr);
     grid-template-columns: 1fr 1fr;
     justify-content: space-between;
     font-family: uaSquare;
@@ -34,6 +34,11 @@
     margin: 0.5em;
     font-size: 1.5em;
 
+}
+
+.horizontal-line {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
 }
 
 /* Tablets and Beyond*/

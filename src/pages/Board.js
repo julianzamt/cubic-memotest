@@ -30,14 +30,18 @@ const Board = (props) => {
     }
     const [tries, setTries] = useState(levelTries)
     const [time, setTime] = useState(levelTime)
+    const [stopTimeFlag, setStopTimeFlag] = useState(false)
+    // Final animations
+    const [winAnimationFlag, setWinAnimationFlag] = useState(false)
+    const [looseAnimationFlag, setLooseAnimationFlag] = useState(false)
 
     return (
         <div className="board__container">
             <Scores />
-            <Timer setFinalFlag={props.setFinalFlag} time={time} setTime={setTime} winFlag={props.winFlag} />
+            <Timer setFinalFlag={props.setFinalFlag} time={time} setTime={setTime} stopTimeFlag={stopTimeFlag} setLooseAnimationFlag={setLooseAnimationFlag} />
             <div className="object__container">
                 {props.winFlag ? <Bonus setFinalFlag={props.setFinalFlag} time={time} tries={tries} levelClearPoints={levelClearPoints} /> :
-                    <Cube tries={tries} setTries={setTries} setFinalFlag={props.setFinalFlag} setWinFlag={props.setWinFlag} />
+                    <Cube tries={tries} setTries={setTries} setFinalFlag={props.setFinalFlag} setWinFlag={props.setWinFlag} winFlag={props.winFlag} finalFlag={props.finalFlag} stopTimeFlag={stopTimeFlag} setStopTimeFlag={setStopTimeFlag} winAnimationFlag={winAnimationFlag} setWinAnimationFlag={setWinAnimationFlag} looseAnimationFlag={looseAnimationFlag} setLooseAnimationFlag={setLooseAnimationFlag} />
                 }
             </div>
             <Tries tries={tries} />

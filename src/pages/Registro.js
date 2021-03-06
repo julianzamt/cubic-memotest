@@ -63,7 +63,6 @@ function Registro(props) {
                 .then((data) => {
                     let user = data.data()
                     localStorage.setItem("username", user["username"])
-                    localStorage.setItem("maxScore", user["maxScore"])
                     context.setUsername(localStorage.getItem("username"))
                     setSpinner(false)
                     props.setFeedbackFlag(true)
@@ -78,7 +77,6 @@ function Registro(props) {
                 })
         }
         e.preventDefault()
-        return
     }
 
     function handleChange(e) {

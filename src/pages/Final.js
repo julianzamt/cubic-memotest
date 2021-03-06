@@ -1,9 +1,11 @@
-import React, { useContext } from "react"
+import React, { useContext, useEffect } from "react"
 import AppContext from "../context/AppContext"
 import "./Final.css"
 import Feedback from "../components/Feedback"
+import Ranking from "../components/Ranking"
 
 const Final = (props) => {
+
     const context = useContext(AppContext)
 
     const handleClick = (e) => {
@@ -23,7 +25,7 @@ const Final = (props) => {
             <div className="final__score">Score {context.score} pts</div>
             <div>Thanks for playing Cubic Memotest Demo</div>
             <div>©2021 Julián Zamt</div>
-            <div className="highscores">HighScores</div>
+            <Ranking />
             <div className="buttons__container">
                 <button onClick={handleClick} className="final__button">Play again</button>
                 <button onClick={handleClick} name="exit" className="final__button">Exit Game</button>

@@ -1,0 +1,9 @@
+.highscore__container {
+    display: flex;
+    justify-content: space-between;
+    font-family: uaSquare;
+    font-size: 1.2em;
+}
+
+.highscore__number {
+}

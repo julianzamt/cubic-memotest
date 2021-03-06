@@ -35,15 +35,15 @@ const Header = (props) => {
         firebase.auth.signInWithEmailAndPassword(email, password)
             .then((data) => {
                 context.loginUser()
-                userId = data.user.uid
-                return (firebase.db.collection("Usuarios").where("userId", "==", userId).get())
-            }).then((querySnapshot) => {
-                const data = querySnapshot.docs.map((doc) => ({
-                    ...doc.data()
-                }))
-                localStorage.setItem("username", data[0].username)
+                return (firebase.db.collection("Usuarios").doc(data.user.uid).get())
+            })
+            .then((data) => {
+                let user = data.data()
+                localStorage.setItem("username", user["username"])
                 context.setUsername(localStorage.getItem("username"))
                 setSpinner(false)
+                props.setFeedbackFlag(true)
+                props.setFeedbackMessage("Succesfully registered and logged in.")
             })
             .catch((err) => {
                 props.setFeedbackFlag(true)

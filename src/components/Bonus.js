@@ -6,6 +6,8 @@ const Bonus = (props) => {
 
     const context = useContext(AppContext)
 
+    console.log("Bonus score before useeffect: " + context.score)
+
     const triesLeftPoints = props.tries * 500
     const timeLeftPoints = props.time * 100
 
@@ -27,8 +29,9 @@ const Bonus = (props) => {
                 <div>Level completed</div> <div className="points">{props.levelClearPoints} pts</div>
                 <div>{props.tries} tries left</div> <div className="points">{triesLeftPoints} pts</div>
                 <div>{props.time} seconds left</div> <div className="points">{timeLeftPoints} pts</div>
-                <hr /> <hr />
-                <div>Total bonus</div> <div className="points">{totalBonusPoints} pts</div>
+                <hr className="horizontal-line" /> <hr className="horizontal-line" />
+                <div>Bonus</div> <div className="points">{totalBonusPoints} pts</div>
+                <div>Score</div> <div className="points">{context.score} pts</div>
             </div>
             <button className="bonus__button" onClick={handleClick}>Continue</button>
         </div>

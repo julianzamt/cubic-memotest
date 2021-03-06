@@ -3,18 +3,15 @@ import AppContext from "../context/AppContext"
 import logo from "../img/cube-outline.svg"
 import "./Cube.css"
 import { sortCubeCards } from "../helpers/randomFrancellas"
-import firebase from '../config/firebase'
+import { addScoreToRanking } from "../services/Ranking_service"
 
 const Cube = (props) => {
     const context = useContext(AppContext)
 
-    // Sort cards on game start
-    const [cubeFrancellas, setCubeFrancellas] = useState(sortCubeCards)
+    const { tries, setTries, setFinalFlag, setWinFlag, looseAnimationFlag, setLooseAnimationFlag, winAnimationFlag, setWinAnimationFlag, finalFlag, setStopTimeFlag, stopTimeFlag } = props
 
-    useEffect(() => {
-        setCubeFrancellas(sortCubeCards)
-        console.log(cubeFrancellas)
-    }, [context.init])
+    // Sort cards on game start with helper
+    const [cubeFrancellas] = useState(sortCubeCards())
 
     // Each card flip state
     const [frontFlip, setFrontFlip] = useState(false)
@@ -24,20 +21,13 @@ const Cube = (props) => {
     const [topFlip, setTopFlip] = useState(false)
     const [bottomFlip, setBottomFlip] = useState(false)
 
-    // Game logic states
+    // Game logic 
     const [currentCards, setCurrentCards] = useState([])
     const [currentFaces, setCurrentFaces] = useState([])
     const [activeFaces, setActiveFaces] = useState(["front", "back", "right", "left", "top", "bottom"])
 
-    // Manage internal win logic
-    const [internalScore, setInternalScore] = useState(0)
-
     // Prevent more than 2 cards being picked simultaneously
     const [lockCards, setLockCards] = useState(false)
-
-    // Final animations
-    const [winAnimation, setWinAnimation] = useState(false)
-    const [looseAnimation, setLooseAnimation] = useState(false)
 
     const handleClick = (e) => {
         const eventCard = e.target.getAttribute("card")
@@ -73,50 +63,63 @@ const Cube = (props) => {
     }
 
     useEffect(() => {
-        // copy states to use them before next render
-        let activeFacesSync = activeFaces
-        let tries = props.tries
-        let internalScoreSync = internalScore
         if (currentCards.length === 2) {
-            tries = tries - 1
-            props.setTries(tries)
+            // copy states to use them before next render
+            let activeFacesSync = activeFaces
+            let triesSync = tries
+            let score = context.score
+            let stopTimeFlagSync = stopTimeFlag
+
+            triesSync = triesSync - 1
+            setTries(triesSync)
             setLockCards(true)
 
-            // If scored
+            // If scores
             if (currentCards[0] === currentCards[1]) {
-                // Game Scores
-                context.setScore(prevState => prevState + 100)
-                // Internal Score
-                internalScoreSync = internalScoreSync + 1
-                setInternalScore(internalScoreSync)
-                // Filter winner faces from actives
-                const temp = activeFaces.filter(item => item !== currentFaces[0])
-                activeFacesSync = temp.filter(item => item !== currentFaces[1])
+                context.setScore(context.score + 100)
+                score = score + 100
+                // Filter faces from actives
+                activeFacesSync = activeFaces.filter(item => !currentFaces.includes(item))
                 setActiveFaces(activeFacesSync)
-
-                if (internalScoreSync === 3) { props.setWinFlag(true) }
+                // Win the game!
+                if (!activeFacesSync.length) {
+                    stopTimeFlagSync = true
+                    setWinAnimationFlag(true)
+                    setStopTimeFlag(true)
+                    setTimeout(() => {
+                        setWinFlag(true)
+                    }, 2000)
+                }
             }
-            else if (tries === 0) {
+            // Loose
+            else if (!triesSync) {
+                stopTimeFlagSync = true
+                setLooseAnimationFlag(true)
+                setStopTimeFlag(true)
+                addScoreToRanking(score, context.username)
                 setTimeout(() => {
-                    props.setFinalFlag(true)
+                    setFinalFlag(true)
                     context.setInit(false)
-                }, 1500)
+                }, 3000)
             }
 
             // reset active cards
-            setTimeout(() => {
-                if (activeFacesSync.includes("front")) { setFrontFlip(false) }
-                if (activeFacesSync.includes("back")) { setBackFlip(false) }
-                if (activeFacesSync.includes("left")) { setLeftFlip(false) }
-                if (activeFacesSync.includes("right")) { setRightFlip(false) }
-                if (activeFacesSync.includes("top")) { setTopFlip(false) }
-                if (activeFacesSync.includes("bottom")) { setBottomFlip(false) }
-                setLockCards(false)
-            }, 800)
-            setCurrentCards([])
-            setCurrentFaces([])
+            if (!stopTimeFlagSync) {
+                console.log("activeFaces: " + activeFacesSync)
+                setTimeout(() => {
+                    if (activeFacesSync.includes("front")) { setFrontFlip(false) }
+                    if (activeFacesSync.includes("back")) { setBackFlip(false) }
+                    if (activeFacesSync.includes("left")) { setLeftFlip(false) }
+                    if (activeFacesSync.includes("right")) { setRightFlip(false) }
+                    if (activeFacesSync.includes("top")) { setTopFlip(false) }
+                    if (activeFacesSync.includes("bottom")) { setBottomFlip(false) }
+                    setLockCards(false)
+                }, 600)
+                setCurrentCards([])
+                setCurrentFaces([])
+            }
         }
-    }, [currentCards, activeFaces, context, currentFaces])
+    }, [currentCards, activeFaces, currentFaces])
 
     /* Rotate on drag*/
 
@@ -166,10 +169,6 @@ const Cube = (props) => {
         }
     };
 
-    useEffect(() => {
-        console.log(_C)
-    }, [])
-
     return (
         <div className="scene"
             onMouseDown={lock}
@@ -179,75 +178,75 @@ const Cube = (props) => {
             onTouchMove={rotate}
             onTouchEnd={release}
         >
-            <div className={`cube ${winAnimation ? "win__animation" : null}`} ref={_C}>
-                <div className={`cube__face cube__face--front`}>
+            <div className={winAnimationFlag ? "cube win__animation" : "cube"} ref={_C}>
+                <div className={looseAnimationFlag ? "cube__face cube__face--front loose__animation" : "cube__face cube__face--front"}>
                     <div className="card__scene">
                         <div className={`card__object ${frontFlip ? "is-flipped" : null} ${lockCards ? "lockCards" : null}`} >
                             <div className="card__face card__face--front" onClick={handleClick} card={cubeFrancellas[0]} face="front">
-                                <img src={logo} alt="cube logo" width="100%" height="100%" card={cubeFrancellas[0]} face="front" />
+                                <img src={logo} alt="cube logo" width="100%" height="100%" card={cubeFrancellas[0]} face="front" onDragStart={(e) => { e.preventDefault() }} />
                             </div>
                             <div className="card__face card__face--back">
-                                <img src={cubeFrancellas[0]} alt="francella" width="100%" height="100%" className="francella" />
+                                <img src={cubeFrancellas[0]} alt="card" width="100%" height="100%" className="card" />
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="cube__face cube__face--back">
+                <div className={looseAnimationFlag ? "cube__face cube__face--back loose__animation" : "cube__face cube__face--back"}>
                     <div className="card__scene">
                         <div className={`card__object ${backFlip ? "is-flipped" : null} ${lockCards ? "lockCards" : null}`}  >
                             <div className="card__face card__face--front" card={cubeFrancellas[1]} face="back" onClick={handleClick}>
-                                <img src={logo} alt="" width="100%" height="100%" card={cubeFrancellas[1]} face="back" />
+                                <img src={logo} alt="" width="100%" height="100%" card={cubeFrancellas[1]} face="back" onDragStart={(e) => { e.preventDefault() }} />
                             </div>
                             <div className="card__face card__face--back">
-                                <img src={cubeFrancellas[1]} alt="francella-2" width="100%" height="100%" className="francella" />
+                                <img src={cubeFrancellas[1]} alt="card-2" width="100%" height="100%" className="card" />
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="cube__face cube__face--right">
+                <div className={looseAnimationFlag ? "cube__face cube__face--right loose__animation" : "cube__face cube__face--right"}>
                     <div className="card__scene">
                         <div className={`card__object ${rightFlip ? "is-flipped" : null} ${lockCards ? "lockCards" : null}`}  >
                             <div className="card__face card__face--front" card={cubeFrancellas[2]} face="right" onClick={handleClick}>
-                                <img src={logo} alt="" width="100%" height="100%" card={cubeFrancellas[2]} face="right" />
+                                <img src={logo} alt="" width="100%" height="100%" card={cubeFrancellas[2]} face="right" onDragStart={(e) => { e.preventDefault() }} />
                             </div>
                             <div className="card__face card__face--back">
-                                <img src={cubeFrancellas[2]} alt="francella-2" width="100%" height="100%" className="francella" />
+                                <img src={cubeFrancellas[2]} alt="card-3" width="100%" height="100%" className="card" />
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="cube__face cube__face--left">
+                <div className={looseAnimationFlag ? "cube__face cube__face--left loose__animation" : "cube__face cube__face--left"}>
                     <div className="card__scene">
                         <div className={`card__object ${leftFlip ? "is-flipped" : null} ${lockCards ? "lockCards" : null}`} >
                             <div className="card__face card__face--front" card={cubeFrancellas[3]} face="left" onClick={handleClick}>
-                                <img src={logo} alt="" width="100%" height="100%" card={cubeFrancellas[3]} face="left" />
+                                <img src={logo} alt="" width="100%" height="100%" card={cubeFrancellas[3]} face="left" onDragStart={(e) => { e.preventDefault() }} />
                             </div>
                             <div className="card__face card__face--back">
-                                <img src={cubeFrancellas[3]} alt="francella-1" width="100%" height="100%" className="francella" />
+                                <img src={cubeFrancellas[3]} alt="card-4" width="100%" height="100%" className="card" />
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="cube__face cube__face--top">
+                <div className={looseAnimationFlag ? "cube__face cube__face--top loose__animation" : "cube__face cube__face--top"}>
                     <div className="card__scene">
                         <div className={`card__object ${topFlip ? "is-flipped" : null} ${lockCards ? "lockCards" : null}`} >
                             <div className="card__face card__face--front" card={cubeFrancellas[4]} face="top" onClick={handleClick}>
-                                <img src={logo} alt="" width="100%" height="100%" card={cubeFrancellas[4]} face="top" />
+                                <img src={logo} alt="" width="100%" height="100%" card={cubeFrancellas[4]} face="top" onDragStart={(e) => { e.preventDefault() }} />
                             </div>
                             <div className="card__face card__face--back">
-                                <img src={cubeFrancellas[4]} alt="francella-3" width="100%" height="100%" className="francella" />
+                                <img src={cubeFrancellas[4]} alt="card-5" width="100%" height="100%" className="card" />
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="cube__face cube__face--bottom">
+                <div className={looseAnimationFlag ? "cube__face cube__face--bottom loose__animation" : "cube__face cube__face--bottom"}>
                     <div className="card__scene">
                         <div className={`card__object ${bottomFlip ? "is-flipped" : null} ${lockCards ? "lockCards" : null}`} >
                             <div className="card__face card__face--front" card={cubeFrancellas[5]} face="bottom" onClick={handleClick}>
-                                <img src={logo} alt="" width="100%" height="100%" card={cubeFrancellas[5]} face="bottom" />
+                                <img src={logo} alt="" width="100%" height="100%" card={cubeFrancellas[5]} face="bottom" onDragStart={(e) => { e.preventDefault() }} />
                             </div>
                             <div className="card__face card__face--back">
-                                <img src={cubeFrancellas[5]} alt="francella-3" width="100%" height="100%" className="francella" />
+                                <img src={cubeFrancellas[5]} alt="card-6" width="100%" height="100%" className="card" />
                             </div>
                         </div>
                     </div>
