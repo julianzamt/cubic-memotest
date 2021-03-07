@@ -65,9 +65,7 @@ const Cube = (props) => {
             let activeFacesSync = activeFaces
             let triesSync = tries
             let score = context.score
-            let stopTimeFlagSync = stopTimeFlag
-
-            triesSync = triesSync - 1
+            triesSync -= 1
             setTries(triesSync)
             setLockCards(true)
 
@@ -80,7 +78,6 @@ const Cube = (props) => {
                 setActiveFaces(activeFacesSync)
                 // Win the game!
                 if (!activeFacesSync.length) {
-                    // stopTimeFlagSync = true
                     setWinAnimationFlag(true)
                     setStopTimeFlag(true)
                     setTimeout(() => {
@@ -89,19 +86,18 @@ const Cube = (props) => {
                 }
             }
             // Loose
-            else if (!triesSync) {
-                stopTimeFlagSync = true
+            if (!triesSync && activeFacesSync.length) {
+                setLockCards(true)
                 setLooseAnimationFlag(true)
                 setStopTimeFlag(true)
                 addScoreToRanking(score, context.username)
                 setTimeout(() => {
                     setFinalFlag(true)
-                    context.setInit(false)
                 }, 3000)
             }
 
-            // reset active cards
-            if (!stopTimeFlagSync) {
+            // reset active cards if game isn't over
+            if (activeFaces.length) {
                 console.log("activeFaces: " + activeFacesSync)
                 setTimeout(() => {
                     if (activeFacesSync.includes("front")) { setFrontFlip(false) }

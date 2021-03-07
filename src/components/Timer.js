@@ -1,7 +1,11 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useContext } from "react"
+import AppContext from "../context/AppContext"
+import { addScoreToRanking } from "../services/Ranking_service"
 import "./Timer.css"
 
 const Timer = (props) => {
+
+    const context = useContext(AppContext)
 
     const { setFinalFlag, time, setTime, stopTimeFlag, setLooseAnimationFlag, setLockCards, winFlag } = props
 
@@ -27,6 +31,7 @@ const Timer = (props) => {
         timeUp = true
         setLockCards(true)
         setLooseAnimationFlag(true)
+        addScoreToRanking(context.score, context.username)
         setTimeout(() => {
             setFinalFlag(true)
         }, 3000)
