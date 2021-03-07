@@ -2,8 +2,6 @@
     display: flex;
     justify-content: space-between;
     font-family: uaSquare;
-    font-size: 1.2em;
+    font-size: 1em;
 }
 
-.highscore__number {
-}

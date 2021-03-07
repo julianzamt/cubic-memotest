@@ -35,16 +35,19 @@ const Board = (props) => {
     const [winAnimationFlag, setWinAnimationFlag] = useState(false)
     const [looseAnimationFlag, setLooseAnimationFlag] = useState(false)
 
+    // Prevent more than 2 cards being picked simultaneously
+    const [lockCards, setLockCards] = useState(false)
+
     return (
         <div className="board__container">
             <Scores />
-            <Timer setFinalFlag={props.setFinalFlag} time={time} setTime={setTime} stopTimeFlag={stopTimeFlag} setLooseAnimationFlag={setLooseAnimationFlag} />
+            <Timer setFinalFlag={props.setFinalFlag} time={time} setTime={setTime} stopTimeFlag={stopTimeFlag} setLooseAnimationFlag={setLooseAnimationFlag} setStopTimeFlag={setStopTimeFlag} setLockCards={setLockCards} setWinFlag={props.setWinFlag} />
             <div className="object__container">
                 {props.winFlag ? <Bonus setFinalFlag={props.setFinalFlag} time={time} tries={tries} levelClearPoints={levelClearPoints} /> :
-                    <Cube tries={tries} setTries={setTries} setFinalFlag={props.setFinalFlag} setWinFlag={props.setWinFlag} winFlag={props.winFlag} finalFlag={props.finalFlag} stopTimeFlag={stopTimeFlag} setStopTimeFlag={setStopTimeFlag} winAnimationFlag={winAnimationFlag} setWinAnimationFlag={setWinAnimationFlag} looseAnimationFlag={looseAnimationFlag} setLooseAnimationFlag={setLooseAnimationFlag} />
+                    <Cube tries={tries} setTries={setTries} setFinalFlag={props.setFinalFlag} setWinFlag={props.setWinFlag} winFlag={props.winFlag} finalFlag={props.finalFlag} stopTimeFlag={stopTimeFlag} setStopTimeFlag={setStopTimeFlag} winAnimationFlag={winAnimationFlag} setWinAnimationFlag={setWinAnimationFlag} looseAnimationFlag={looseAnimationFlag} setLooseAnimationFlag={setLooseAnimationFlag} setLockCards={setLockCards} lockCards={lockCards} />
                 }
             </div>
-            <Tries tries={tries} />
+            <Tries tries={tries} setWinFlag={props.setWinFlag} />
             {props.feedbackFlag || !context.login ? <Feedback setFeedbackFlag={props.setFeedbackFlag} feedbackMessage={props.feedbackMessage} setFeedbackMessage={props.setFeedbackMessage} feedbackFlag={props.feedbackFlag} /> : null}
         </div>
     )

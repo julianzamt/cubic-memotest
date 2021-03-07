@@ -3,14 +3,15 @@ import "./Timer.css"
 
 const Timer = (props) => {
 
-    const { setFinalFlag, time, setTime, stopTimeFlag, setLooseAnimationFlag } = props
+    const { setFinalFlag, time, setTime, stopTimeFlag, setLooseAnimationFlag, setLockCards, winFlag } = props
 
     const [beat, setBeat] = useState(false)
+    let timeUp = false
 
     useEffect(() => {
         let timeout = null
         if (!stopTimeFlag) {
-            if (time > 0) {
+            if (time >= 0) {
                 timeout = setTimeout(() => setTime(prevState => prevState - 1), 1000)
             }
             time === 5 && setBeat(true)
@@ -22,7 +23,9 @@ const Timer = (props) => {
 
     }, [time, setTime, stopTimeFlag]);
 
-    if (time === 0) {
+    if (time < 0) {
+        timeUp = true
+        setLockCards(true)
         setLooseAnimationFlag(true)
         setTimeout(() => {
             setFinalFlag(true)
@@ -30,9 +33,11 @@ const Timer = (props) => {
     }
 
     return (
-        <div className="timer__container">
+        <div className={winFlag ? "timer__container timer__hidden" : "timer__container"} >
             <div className="timer__text">Time</div>
-            <div className={beat ? "time beat" : "time"}>{time}</div>
+            {timeUp ? <div className="timeup">Time´s up!</div> :
+                <div className={beat ? "time beat" : "time"}>{time}</div>
+            }
         </div>
     )
 }

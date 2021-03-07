@@ -8,7 +8,7 @@ import { addScoreToRanking } from "../services/Ranking_service"
 const Cube = (props) => {
     const context = useContext(AppContext)
 
-    const { tries, setTries, setFinalFlag, setWinFlag, looseAnimationFlag, setLooseAnimationFlag, winAnimationFlag, setWinAnimationFlag, finalFlag, setStopTimeFlag, stopTimeFlag } = props
+    const { tries, setTries, setFinalFlag, setWinFlag, looseAnimationFlag, setLooseAnimationFlag, winAnimationFlag, setWinAnimationFlag, lockCards, setStopTimeFlag, stopTimeFlag, setLockCards } = props
 
     // Sort cards on game start with helper
     const [cubeFrancellas] = useState(sortCubeCards())
@@ -25,9 +25,6 @@ const Cube = (props) => {
     const [currentCards, setCurrentCards] = useState([])
     const [currentFaces, setCurrentFaces] = useState([])
     const [activeFaces, setActiveFaces] = useState(["front", "back", "right", "left", "top", "bottom"])
-
-    // Prevent more than 2 cards being picked simultaneously
-    const [lockCards, setLockCards] = useState(false)
 
     const handleClick = (e) => {
         const eventCard = e.target.getAttribute("card")
@@ -83,7 +80,7 @@ const Cube = (props) => {
                 setActiveFaces(activeFacesSync)
                 // Win the game!
                 if (!activeFacesSync.length) {
-                    stopTimeFlagSync = true
+                    // stopTimeFlagSync = true
                     setWinAnimationFlag(true)
                     setStopTimeFlag(true)
                     setTimeout(() => {

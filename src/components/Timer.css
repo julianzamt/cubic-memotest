@@ -26,6 +26,14 @@
     60%{opacity: 1; transform: scale(1);}
 }
 
+.timeup {
+    font-size: 2em;
+}
+
+.timer__hidden {
+    visibility: hidden !important;
+}
+
 /* Tablets and Beyond*/
 @media (min-width: 480px){
     .timer__container {

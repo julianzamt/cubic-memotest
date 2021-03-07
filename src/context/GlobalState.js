@@ -8,6 +8,7 @@ const GlobalState = (props) => {
     const [username, setUsername] = useState(localStorage.getItem("username"))
     const [score, setScore] = useState(0)
     const [level, setLevel] = useState(1)
+    const [ranking, setRanking] = useState([])
     const [init, setInit] = useState(true)
     const history = useHistory()
 
@@ -35,7 +36,7 @@ const GlobalState = (props) => {
                 level: level,
                 setLevel: setLevel,
                 init: init,
-                setInit: setInit
+                setInit: setInit,
             }}
         >
             {props.children}
