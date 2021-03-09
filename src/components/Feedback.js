@@ -1,5 +1,5 @@
 import React, { useContext } from "react"
-import { useSpring, animated, config } from 'react-spring'
+import { useSpring, animated as a, config } from 'react-spring'
 import "./Feedback.css"
 import AppContext from "../context/AppContext"
 
@@ -19,9 +19,9 @@ const Feedback = (props) => {
 
     return (
         <div className="feedback__container">
-            <animated.div style={fade}>{props.feedbackMessage}</animated.div>
+            {props.feedbackFlag ? <a.div style={fade}>{props.feedbackMessage}</a.div> : null}
             {
-                !context.login && !props.feedbackFlag &&
+                !context.login && !props.feedbackMessage &&
                 <div> Currently playing as <b>Guest</b>. Login for track your scores.</div>
             }
         </div>

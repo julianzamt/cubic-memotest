@@ -4,11 +4,15 @@ import logo from "../img/cube-outline.svg"
 import "./Cube.css"
 import { sortCubeCards } from "../helpers/randomFrancellas"
 import { addScoreToRanking } from "../services/Ranking_service"
+import firebase from "../config/firebase"
+import HighScore from "../components/HighScore"
 
 const Cube = (props) => {
     const context = useContext(AppContext)
 
     const { tries, setTries, setFinalFlag, setWinFlag, looseAnimationFlag, setLooseAnimationFlag, winAnimationFlag, setWinAnimationFlag, lockCards, setStopTimeFlag, stopTimeFlag, setLockCards } = props
+
+    const rankingRef = firebase.db.collection("Ranking")
 
     // Sort cards on game start with helper
     const [cubeFrancellas] = useState(sortCubeCards())
@@ -90,7 +94,26 @@ const Cube = (props) => {
                 setLockCards(true)
                 setLooseAnimationFlag(true)
                 setStopTimeFlag(true)
-                addScoreToRanking(score, context.username)
+                // Add score and get rankings
+                rankingRef.add({
+                    username: context.username,
+                    score: score
+                })
+                    .then(rankingRef.orderBy("score", "desc").limit(10).get()
+                        .then((querySnapshot) => {
+                            const ranking = querySnapshot.docs.map((item, index) =>
+                                <HighScore
+                                    key={item.id}
+                                    index={index + 1}
+                                    username={item.data().username}
+                                    score={item.data().score}
+                                />
+                            )
+                            context.setRanking(ranking)
+                        }))
+                    .catch((error) => {
+                        console.log("Error getting documents: ", error);
+                    });
                 setTimeout(() => {
                     setFinalFlag(true)
                 }, 3000)

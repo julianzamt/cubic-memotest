@@ -42,8 +42,6 @@ const Header = (props) => {
                 localStorage.setItem("username", user["username"])
                 context.setUsername(localStorage.getItem("username"))
                 setSpinner(false)
-                props.setFeedbackFlag(true)
-                props.setFeedbackMessage("Succesfully registered and logged in.")
             })
             .catch((err) => {
                 props.setFeedbackFlag(true)

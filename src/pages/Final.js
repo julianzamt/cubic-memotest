@@ -3,6 +3,8 @@ import AppContext from "../context/AppContext"
 import "./Final.css"
 import Feedback from "../components/Feedback"
 import Ranking from "../components/Ranking"
+import { useSpring, animated as a, config } from 'react-spring'
+
 
 const Final = (props) => {
 
@@ -19,9 +21,15 @@ const Final = (props) => {
         }
     }
 
+    const standUp = useSpring({
+        from: { transform: 'rotateX(-90deg)' },
+        to: { transform: 'rotateX(0deg)' },
+        config: { mass: 3, tension: 180, friction: 12 }
+    })
+
     return (
         <div className="final__container">
-            {props.winFlag ? <div className="result"> You win! :)</div> : <div className="result">You loose :(</div>}
+            {props.winFlag ? <a.div className="result" style={standUp}> You win! :)</a.div> : <a.div className="result" style={standUp}>You loose :(</a.div>}
             <div className="final__score">Score {context.score} pts</div>
             <div>Thanks for playing Cubic Memotest Demo</div>
             <div>©2021 Julián Zamt</div>

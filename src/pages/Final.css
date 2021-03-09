@@ -11,6 +11,8 @@
     color: rgb(230, 63, 63);
     font-family: manaspace;
     font-size: 5.5vmax;
+    perspective: 600px;
+    transform-origin: bottom;
 }
 
 .final__score {
@@ -20,22 +22,18 @@
 
 .final__button {
     text-align: center;
-    font-size: 1rem;
     border: none;
-    border-radius: 20px;
+    border-radius: 15px;
     padding: 0.5em;
     margin: 1em;
-    transition: transform 0.3s;
 }
 
-.final__button:hover {
-    transform: scale(1.1);
-}
+
 
 .buttons__container {
     display: flex;
     justify-content: center;
-    font-family: manaspace;
+
 }
 
 .highscores {

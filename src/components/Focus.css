@@ -1,0 +1,27 @@
+.focus__container {
+    display: flex;
+    height: 95%;
+    justify-content: center;
+    align-items: center;
+}
+
+.focus {
+    font-size: 30vmin;
+    animation: appear 2s ease-in-out;
+    animation-fill-mode: both;
+    opacity: 0;
+    font-family: uaSquare;
+}
+
+@keyframes appear {
+    50%{opacity: 1}
+    100% {opacity:0}
+}
+
+.go {
+    font-size: 40vmin;
+    color:rgb(230, 63, 63);
+    font-family: manaspace;
+    perspective: 600px;
+    transform-origin: bottom;
+}
