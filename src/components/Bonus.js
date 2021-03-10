@@ -18,11 +18,30 @@ const Bonus = (props) => {
 
     useEffect(() => {
         context.setScore(context.score + totalBonusPoints)
-        rankingRef.add({
-            username: context.username,
-            score: (context.score + totalBonusPoints)
-        })
-            .then(rankingRef.orderBy("score", "desc").limit(10).get()
+        if (context.login) {
+            console.log("bonus logged")
+            rankingRef.add({
+                username: context.username,
+                score: (context.score + totalBonusPoints)
+            })
+                .then(rankingRef.orderBy("score", "desc").limit(10).get()
+                    .then((querySnapshot) => {
+                        const ranking = querySnapshot.docs.map((item, index) =>
+                            <HighScore
+                                key={item.id}
+                                index={index + 1}
+                                username={item.data().username}
+                                score={item.data().score}
+                            />
+                        )
+                        context.setRanking(ranking)
+                    }))
+                .catch((error) => {
+                    console.log("Error getting documents: ", error);
+                });
+        }
+        else {
+            rankingRef.orderBy("score", "desc").limit(10).get()
                 .then((querySnapshot) => {
                     const ranking = querySnapshot.docs.map((item, index) =>
                         <HighScore
@@ -33,10 +52,11 @@ const Bonus = (props) => {
                         />
                     )
                     context.setRanking(ranking)
-                }))
-            .catch((error) => {
-                console.log("Error getting documents: ", error);
-            });
+                })
+                .catch((error) => {
+                    console.log("Error getting documents: ", error);
+                });
+        }
     }, [])
 
     const handleClick = () => {

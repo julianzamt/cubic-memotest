@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react"
+import React, { useContext } from "react"
 import AppContext from "../context/AppContext"
 import "./Final.css"
 import Feedback from "../components/Feedback"

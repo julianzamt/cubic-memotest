@@ -3,7 +3,6 @@ import AppContext from "../context/AppContext"
 import logo from "../img/cube-outline.svg"
 import "./Cube.css"
 import { sortCubeCards } from "../helpers/randomFrancellas"
-import { addScoreToRanking } from "../services/Ranking_service"
 import firebase from "../config/firebase"
 import HighScore from "../components/HighScore"
 
@@ -52,6 +51,8 @@ const Cube = (props) => {
             case "bottom":
                 setBottomFlip(true)
                 break
+            default:
+                console.log("An error ocurred selecting the card")
         }
         setCurrentCards([
             ...currentCards,
@@ -66,11 +67,10 @@ const Cube = (props) => {
     useEffect(() => {
         if (currentCards.length === 2) {
             // copy states to use them before next render
+            console.log("cube current cards 2")
             let activeFacesSync = activeFaces
-            let triesSync = tries
             let score = context.score
-            triesSync -= 1
-            setTries(triesSync)
+            setTries(prevState => prevState - 1)
             setLockCards(true)
 
             // If scores
@@ -90,16 +90,34 @@ const Cube = (props) => {
                 }
             }
             // Loose
-            if (!triesSync && activeFacesSync.length) {
-                setLockCards(true)
+            if (tries < 0) {
                 setLooseAnimationFlag(true)
                 setStopTimeFlag(true)
                 // Add score and get rankings
-                rankingRef.add({
-                    username: context.username,
-                    score: score
-                })
-                    .then(rankingRef.orderBy("score", "desc").limit(10).get()
+                if (context.login) {
+                    console.log("cube Loose")
+                    rankingRef.add({
+                        username: context.username,
+                        score: score
+                    })
+                        .then(rankingRef.orderBy("score", "desc").limit(10).get()
+                            .then((querySnapshot) => {
+                                const ranking = querySnapshot.docs.map((item, index) =>
+                                    <HighScore
+                                        key={item.id}
+                                        index={index + 1}
+                                        username={item.data().username}
+                                        score={item.data().score}
+                                    />
+                                )
+                                context.setRanking(ranking)
+                            }))
+                        .catch((error) => {
+                            console.log("Error getting documents: ", error);
+                        });
+                }
+                else {
+                    rankingRef.orderBy("score", "desc").limit(10).get()
                         .then((querySnapshot) => {
                             const ranking = querySnapshot.docs.map((item, index) =>
                                 <HighScore
@@ -110,17 +128,18 @@ const Cube = (props) => {
                                 />
                             )
                             context.setRanking(ranking)
-                        }))
-                    .catch((error) => {
-                        console.log("Error getting documents: ", error);
-                    });
+                        })
+                        .catch((error) => {
+                            console.log("Error getting documents: ", error);
+                        });
+                }
                 setTimeout(() => {
                     setFinalFlag(true)
                 }, 3000)
             }
 
             // reset active cards if game isn't over
-            if (activeFaces.length) {
+            if (tries > 0 && activeFaces.length) {
                 console.log("activeFaces: " + activeFacesSync)
                 setTimeout(() => {
                     if (activeFacesSync.includes("front")) { setFrontFlip(false) }

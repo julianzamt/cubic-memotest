@@ -3,6 +3,13 @@
   height: 100%;
   grid-template-rows: 3em 4em 1fr auto auto;
   position: relative;
+  animation: fadeIn 0.25s ease-in-out;
+  animation-fill-mode: both;
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  100%{opacity: 1}
 }
 
 .object__container {
