@@ -21,7 +21,7 @@
 /* Tablets and Beyond*/
 @media (min-width: 480px){
   .board__container{
-    grid-template-rows: 1fr 6fr 1fr;
+    grid-template-rows: 1fr 5fr 1fr;
     grid-template-columns: 2fr 6fr 2fr;
     column-gap: 1vmax;
     margin-right: 1em;

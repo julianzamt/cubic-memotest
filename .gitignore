@@ -10,9 +10,10 @@
 
 # production
 /build
-
-# fonts
-/src/fonts
+/github
+/.firebase
+.firebaserc
+.firebase.json
 
 # misc
 .DS_Store

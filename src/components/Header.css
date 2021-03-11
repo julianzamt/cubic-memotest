@@ -1,36 +1,50 @@
+.navbar {
+    padding: .5em 1em .3em 1em !important;
+}
+
 .navbar__container {
     border-bottom: 0.5px solid lightgray;
 }
 
+.navbar-brand {
+    padding-bottom: 0.2em !important;
+    padding-top: 0 !important;
+    font-size: 1.2em !important;
+}
+
 .register {
-    font-size: 0.8em !important;
+    font-size: 0.7em !important;
     display: inline-block !important;
 }
 
 .nav-input {
-    font-size: 0.9em !important;
+    font-size: 0.7em !important;
     height: 2em !important; 
     padding-left: .325rem  !important;
     color: grey;
     margin-bottom: 0 !important;
 }
 
+.navbar-nav.toggle-logged.greeting {
+    margin-top: 0 !important;
+}
+
 .login-label {
-    font-size: 0.9em !important;
+    font-size: 0.7em !important;
     height: 2em !important; 
     color: grey;
     margin-bottom: 0 !important;
 }
 
 .greeting {
-    font-size: 1.2em;
+    font-size: 0.9em;
     margin-left: auto;
     margin-right: 2em;
     color: rgb(72, 72, 72) !important
 }
 
 .logout {
-    font-size: small;
+    font-size: 0.9em;
 }
 
 .welcome {
@@ -49,11 +63,11 @@
   }
 
 .hamburguer {
-    height: 1em ;
+    height: 0.8em ;
 }
 
 .hamburguer__button {
-    padding: 0 0.8em !important;
+    padding: 0 0.6em !important;
 }
 
 .form-group {
@@ -87,3 +101,22 @@
         padding: 0.1em !important;
     }
 }
+
+/* Tablets and Beyond*/
+@media (min-width: 480px){
+    .login-label {
+        font-size: 0.8em !important;
+    }
+    .nav-input {
+        font-size: 0.8em !important;
+    }
+    .register {
+        font-size: 0.8em !important;
+        margin-top: 0.2em;
+        margin-bottom: 0.2em;
+    }
+
+    .greeting {
+        font-size: 1em;
+    }
+  }

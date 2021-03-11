@@ -71,8 +71,8 @@ const Header = (props) => {
         <div className="navbar__container">
             <Navbar bg="light" expand="lg">
                 <Navbar.Brand>
-                    <img src={logo} alt="logo" height="30" width="30" />
-                    <span className="ml-2">Cubic Memotest</span>
+                    <img src={logo} alt="logo" height="22" width="22" />
+                    <span className="ml-2 brand__text">Cubic Memotest</span>
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" className="hamburguer__button"><MenuIcon className="hamburguer" /></Navbar.Toggle>
                 <Navbar.Collapse id="basic-navbar-nav">

@@ -10,14 +10,14 @@
 .result {
     color: rgb(230, 63, 63);
     font-family: manaspace;
-    font-size: 5.5vmax;
+    font-size: 5vmax;
     perspective: 600px;
     transform-origin: bottom;
 }
 
 .final__score {
     font-family: uaSquare;
-    font-size: 7vmin;
+    font-size: 6vmin;
 }
 
 .final__button {

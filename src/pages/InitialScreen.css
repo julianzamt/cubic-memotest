@@ -21,7 +21,6 @@
         font-size: 10vmin;
     }
     .start__button {
-        font-size: 1.5em;
         transition: box-shadow 0.2s;
     }
     .start__button:hover {
