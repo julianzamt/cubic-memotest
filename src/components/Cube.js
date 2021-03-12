@@ -67,30 +67,30 @@ const Cube = (props) => {
     useEffect(() => {
         if (currentCards.length === 2) {
             // copy states to use them before next render
-            console.log("cube current cards 2")
+            console.log("tries" + tries)
             let activeFacesSync = activeFaces
             let score = context.score
-            setTries(prevState => prevState - 1)
+            if (tries != 0) { setTries(prevState => prevState - 1) }
             setLockCards(true)
 
             // If scores
-            if (currentCards[0] === currentCards[1]) {
+            if (currentCards[0] === currentCards[1] && tries != 0) {
                 context.setScore(context.score + 100)
                 score = score + 100
                 // Filter faces from actives
                 activeFacesSync = activeFaces.filter(item => !currentFaces.includes(item))
                 setActiveFaces(activeFacesSync)
-                // Win the game!
-                if (!activeFacesSync.length) {
-                    setWinAnimationFlag(true)
-                    setStopTimeFlag(true)
-                    setTimeout(() => {
-                        setWinFlag(true)
-                    }, 2000)
-                }
+            }
+            // Win the game!
+            if (!activeFacesSync.length) {
+                setWinAnimationFlag(true)
+                setStopTimeFlag(true)
+                setTimeout(() => {
+                    setWinFlag(true)
+                }, 2000)
             }
             // Loose
-            if (tries < 0) {
+            else if (tries === 1) {
                 setLooseAnimationFlag(true)
                 setStopTimeFlag(true)
                 // Add score and get rankings
@@ -139,7 +139,7 @@ const Cube = (props) => {
             }
 
             // reset active cards if game isn't over
-            if (tries > 0 && activeFaces.length) {
+            if (tries > 1 && activeFaces.length) {
                 console.log("activeFaces: " + activeFacesSync)
                 setTimeout(() => {
                     if (activeFacesSync.includes("front")) { setFrontFlip(false) }
@@ -162,7 +162,8 @@ const Cube = (props) => {
     const [drag, setDrag] = useState(false)
     const [x0, setX0] = useState(null)
     const [y0, setY0] = useState(null)
-    const A = .2;
+    // this constant handles the velocity of rotation
+    const A = .45;
 
     const _C = useRef(null)
 

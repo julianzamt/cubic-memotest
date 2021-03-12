@@ -11,7 +11,7 @@
 .bonus__title {
     font-family: manaspace;
     color: rgb(201, 7, 7);
-    font-size: 7vmin;
+    font-size: 6vmin;
 }
 
 .bonus__points {
@@ -20,7 +20,7 @@
     grid-template-columns: 1fr 1fr;
     justify-content: space-between;
     font-family: uaSquare;
-    font-size: 5vmin;
+    font-size: 4vmin;
 }
 
 .points {
@@ -40,9 +40,28 @@
     margin-bottom: 0.5em;
 }
 
-/* Tablets and Beyond*/
-@media (min-width: 480px){
+/* Tablet */
+@media (min-width: 480px) and (max-width: 699px){
     .bonus__container {
         border: none;
+    }
+    .bonus__title {
+        font-size: 3.5vmax;
+    }
+    .bonus__points {
+        font-size: 3vmin;
+    }
+  }
+
+/* desktop */
+@media (min-width: 700px) {
+    .bonus__container {
+        border: none;
+    }
+    .bonus__title {
+        font-size: 3vmax;
+    }
+    .bonus__points {
+        font-size: 2vmax;
     }
   }
