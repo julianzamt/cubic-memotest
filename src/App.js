@@ -1,12 +1,13 @@
 import Footer from "./components/Footer"
 import Header from "./components/Header"
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import Board from "./pages/Board"
 import GlobalState from "./context/GlobalState"
 import Registro from "./pages/Registro"
 import { Route, Switch } from "react-router"
 import InitialScreen from "./pages/InitialScreen"
 import Final from "./pages/Final"
+import { disableBodyScroll } from 'body-scroll-lock';
 import "./App.css"
 
 const App = () => {
@@ -17,6 +18,10 @@ const App = () => {
     const [winFlag, setWinFlag] = useState(false)
     const [finalFlag, setFinalFlag] = useState(false)
     const [initialScreenFlag, setInitialScreenFlag] = useState(true)
+
+    useEffect(() => {
+        disableBodyScroll()
+    }, [])
 
     return (
         <GlobalState>

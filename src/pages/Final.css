@@ -27,14 +27,12 @@
     padding: 0.5em;
     width: 30vmin;
     margin: 1em;
+    background-color: rgb(240, 240, 240);
 }
-
-
 
 .buttons__container {
     display: flex;
     justify-content: center;
-
 }
 
 .highscores {
