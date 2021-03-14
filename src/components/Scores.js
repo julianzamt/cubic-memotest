@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react"
+import React, { useContext } from "react"
 import "./Scores.css"
 import AppContext from "../context/AppContext"
 // import firebase from "../config/firebase"

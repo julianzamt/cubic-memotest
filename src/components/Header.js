@@ -25,8 +25,6 @@ const Header = (props) => {
 
     const [spinner, setSpinner] = useState(false)
 
-    let userId = ""
-
     function handleSubmit(e) {
         e.preventDefault()
         setSpinner(true)

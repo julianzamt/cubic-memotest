@@ -70,7 +70,7 @@ const Timer = (props) => {
 
         return () => clearTimeout(timeout)
 
-    }, [time, setTime, stopTimeFlag]);
+    }, [time, setTime, stopTimeFlag, rankingRef]);
 
     if (time < 0) {
         timeUp = true

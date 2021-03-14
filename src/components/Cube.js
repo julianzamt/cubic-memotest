@@ -9,7 +9,7 @@ import HighScore from "../components/HighScore"
 const Cube = (props) => {
     const context = useContext(AppContext)
 
-    const { tries, setTries, setFinalFlag, setWinFlag, looseAnimationFlag, setLooseAnimationFlag, winAnimationFlag, setWinAnimationFlag, lockCards, setStopTimeFlag, stopTimeFlag, setLockCards } = props
+    const { tries, setTries, setFinalFlag, setWinFlag, looseAnimationFlag, setLooseAnimationFlag, winAnimationFlag, setWinAnimationFlag, lockCards, setStopTimeFlag, setLockCards } = props
 
     const rankingRef = firebase.db.collection("Ranking")
 
@@ -70,11 +70,11 @@ const Cube = (props) => {
             console.log("tries" + tries)
             let activeFacesSync = activeFaces
             let score = context.score
-            if (tries != 0) { setTries(prevState => prevState - 1) }
+            if (tries !== 0) { setTries(prevState => prevState - 1) }
             setLockCards(true)
 
             // If scores
-            if (currentCards[0] === currentCards[1] && tries != 0) {
+            if (currentCards[0] === currentCards[1] && tries !== 0) {
                 context.setScore(context.score + 100)
                 score = score + 100
                 // Filter faces from actives
@@ -154,7 +154,7 @@ const Cube = (props) => {
                 setCurrentFaces([])
             }
         }
-    }, [currentCards, activeFaces, currentFaces])
+    }, [currentCards, activeFaces, currentFaces, setStopTimeFlag, setLooseAnimationFlag, setTries, setWinFlag, setWinAnimationFlag, setFinalFlag, setLockCards, rankingRef, tries, context])
 
     /* Rotate on drag*/
 
