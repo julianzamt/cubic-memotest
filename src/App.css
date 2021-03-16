@@ -1,12 +1,12 @@
 
 @font-face {
   font-family: uaSquare;
-  src: url(./fonts/ua-squared/UASQUARE.TTF)
+  src: url(./fonts/ua-squared/UASQUARE.woff2)
 }
 
 @font-face {
   font-family: manaspace;
-  src: url(./fonts/manaspace/manaspc.ttf)
+  src: url(./fonts/manaspace/manaspc.woff2)
 }
 
 /* Layout */
