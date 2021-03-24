@@ -5,7 +5,23 @@
     align-items: center;
 }
 
+.initialButton__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 .start__button {
+    padding: 0.5em;
+    width: 60vmin;
+    border-radius: 15px;
+    border: none;
+    background-color: rgb(240, 240, 240);
+}
+
+.instructions__button {
+    margin-top: 2em;
     padding: 0.5em;
     width: 60vmin;
     border-radius: 15px;
