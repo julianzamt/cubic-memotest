@@ -1,0 +1,54 @@
+.instructions__container {
+    width: 80vw;
+    height: 90vh;
+    display: grid;
+    grid-template-rows: 1fr 20px;
+    row-gap: 1em;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+}
+
+.page__container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+}
+
+.instructionsImg {
+    width: 70%;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+}
+
+.instructions__text {
+    text-align: center;
+}
+
+.timeTries {
+    font-family: uaSquare;
+    font-size: 3em;
+}
+
+.highscores__instructions {
+    font-family: manaspace;
+    font-size: 2em;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+}
+
+.closeButton {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    cursor: pointer;
+    color: gray;
+}
