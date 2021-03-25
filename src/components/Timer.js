@@ -14,6 +14,7 @@ const Timer = (props) => {
 
     const [beat, setBeat] = useState(false)
     let timeUp = false
+    let hide = false
 
     useEffect(() => {
         let timeout = null
@@ -74,6 +75,7 @@ const Timer = (props) => {
 
     if (time < 0) {
         timeUp = true
+        hide = true
         setLockCards(true)
         setLooseAnimationFlag(true)
         setStopTimeFlag(true)
@@ -84,7 +86,7 @@ const Timer = (props) => {
 
     return (
         <div className={winFlag ? "timer__container timer__hidden" : "timer__container"} >
-            <div className="timer__text">Time</div>
+            {hide ? null : <div className="timer__text">Time</div>}
             {timeUp ? <div className="timeup">Time´s up!</div> :
                 <div className={beat ? "time beat" : "time"}>{time}</div>
             }

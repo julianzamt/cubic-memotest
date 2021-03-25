@@ -1,6 +1,7 @@
 .timer__container {
     display:flex;
-    justify-content: center;
+    height: 100%;
+    flex-direction: column;
     align-items: center;
     font-family: uaSquare;
     user-select: none;
@@ -10,10 +11,11 @@
     color:gray;
     font-size: 5em;
     will-change: opacity, transform;
+    margin-top: -0.2em;
 }
 
 .timer__text {
-    display: none;
+    font-size: 8vmin;
 }
 
 .time.beat {
@@ -37,7 +39,7 @@
 /* Tablets and Beyond*/
 @media (min-width: 480px){
     .timer__container {
-        flex-direction: column;
+        justify-content: center;
     }
     .timer__text {
         display: block;
@@ -54,6 +56,7 @@
     }
     .time {
         font-size: 20vmin;
+        margin-top: 0;
     }
 }
 

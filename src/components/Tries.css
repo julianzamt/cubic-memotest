@@ -8,10 +8,11 @@
 }
 
 .tries__text {
-    font-size: 1.5em;
+    font-size: 8vmin;
 }
 
 .tries__number {
+    margin-top: -0.2em;
     will-change: opacity, transform;
     font-size: 5em;
     color: gray;
@@ -38,5 +39,6 @@
     }
     .tries__number {
         font-size: 20vmin;
+        margin-top: 0;
     }
 }

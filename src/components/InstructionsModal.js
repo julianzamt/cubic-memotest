@@ -43,7 +43,7 @@ function InstructionsModal(props) {
                         </div>
                         <div style={{ textAlign: "center" }}>
                             <img src={instructions_4} alt="instructions_4" className="instructionsImg" />
-                            <div className="instructions__text">Found all matches, and win.<br></br>Prepare for next level. <br></br><span style={{ fontSize: "smaller" }}>(Demo: 1 level only)</span></div>
+                            <div className="instructions__text">Found all matches, and win.<br></br>Be prepared for the next level. <br></br><span style={{ fontSize: "smaller" }}>(Demo: 1 level only)</span></div>
                         </div>
                         <div style={{ textAlign: "center" }}>
                             <div className="highscores__instructions">Highscores</div>

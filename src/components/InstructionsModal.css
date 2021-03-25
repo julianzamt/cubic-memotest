@@ -24,23 +24,23 @@
 }
 
 .instructionsImg {
-    width: 70%;
-    margin-top: 1em;
-    margin-bottom: 0.5em;
+    width: 30vmax;
+    margin-bottom: 0.2em;
 }
 
 .instructions__text {
     text-align: center;
+    font-size: 2vmax;
 }
 
 .timeTries {
     font-family: uaSquare;
-    font-size: 3em;
+    font-size: 5vmax;
 }
 
 .highscores__instructions {
     font-family: manaspace;
-    font-size: 2em;
+    font-size: 4vmax;
     margin-top: 1em;
     margin-bottom: 0.5em;
 }

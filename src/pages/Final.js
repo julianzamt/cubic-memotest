@@ -29,7 +29,7 @@ const Final = (props) => {
 
     return (
         <div className="final__container">
-            {props.winFlag ? <a.div className="result" style={standUp}> You win! :)</a.div> : <a.div className="result" style={standUp}>You loose :(</a.div>}
+            {props.winFlag ? <a.div className="result" style={standUp}> You win! :)</a.div> : <a.div className="result" style={standUp}>You lose :(</a.div>}
             <div className="final__score">Score {context.score} pts</div>
             <div>Thanks for playing Cubic Memotest Demo</div>
             <div>©2021 Julián Zamt</div>
