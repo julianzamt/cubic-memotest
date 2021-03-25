@@ -1,0 +1,24 @@
+.about__container {
+    width: 80vw;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em;
+    text-align: center;
+    font-size: small;
+}
+
+.about__text {
+    margin-bottom: 0.5em;
+}
+
+.brand__logo {
+    width: 5vmax;
+    height: 5vmax;
+}
+
+.brand__text__about {
+    font-size: 4vmax;
+}

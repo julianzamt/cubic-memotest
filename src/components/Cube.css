@@ -12,7 +12,7 @@
 [class*='cube'] { position: absolute }
 
 .cube {
-  font-size: 8vmin;
+  font-size: 4vmax;
   top: 52%; left: 50%; 
   transform-style: preserve-3d; 
   /* Here rotation takes place: var(--p) is a chained rotated3d with the new coordinates */
@@ -50,8 +50,8 @@
 .card__scene {
   width: 50%;
   height: 50%;
-  min-width: 100px;
-  min-height: 100px;
+  min-width: 80px;
+  min-height: 80px;
   max-width: 120px;
   max-height: 120px;
   perspective: 600px;

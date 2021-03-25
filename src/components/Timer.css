@@ -9,13 +9,13 @@
 
 .time {
     color:gray;
-    font-size: 5em;
+    font-size: 10vmax;
     will-change: opacity, transform;
     margin-top: -0.2em;
 }
 
 .timer__text {
-    font-size: 8vmin;
+    font-size: 3.5vmax;
 }
 
 .time.beat {
@@ -29,7 +29,8 @@
 }
 
 .timeup {
-    font-size: 2em;
+    font-size: 9vmin;
+    justify-self: center;
 }
 
 .timer__hidden {

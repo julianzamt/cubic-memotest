@@ -8,13 +8,13 @@
 }
 
 .tries__text {
-    font-size: 8vmin;
+    font-size: 3.5vmax;
 }
 
 .tries__number {
     margin-top: -0.2em;
     will-change: opacity, transform;
-    font-size: 5em;
+    font-size: 10vmax;
     color: gray;
     animation: beat 1s ease; /* beat animation defined on Timer.css*/
 }
