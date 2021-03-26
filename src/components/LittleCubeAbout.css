@@ -1,5 +1,5 @@
 :root {
-    --little-cube-edge: 6vmax;
+    --little-cube-edge: 5vmax;
 }
 
 .little__scene {
@@ -49,6 +49,6 @@
 /* Tablets and Beyond*/
 @media (min-width: 480px){
     :root {
-        --little-cube-edge: 15vmin;
+        --little-cube-edge: 6vmin;
     }
   }

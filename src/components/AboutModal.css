@@ -1,13 +1,34 @@
 .about__container {
-    width: 80vw;
     height: 90vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    padding: 1em;
+    padding: 2em;
     text-align: center;
     font-size: small;
+}
+
+.about__text__brand {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.demo__brand {
+    color: gray;
+    font-size: 1.5vmax;
+}
+
+.about__brand {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.about__text__first{
+    margin-top: 1em;
 }
 
 .about__text {
