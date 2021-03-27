@@ -7,8 +7,9 @@ html {
   height: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-y: hidden;
+  /* overflow-y: hidden; */
   -webkit-overflow-scrolling: touch;
+  user-select: none;
 }
 
 code {
