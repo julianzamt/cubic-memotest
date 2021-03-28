@@ -7,10 +7,10 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
-  <React.StrictMode>
+  <div>
     <CssBaseline />
     <App />
-  </React.StrictMode>,
+  </div>,
   document.getElementById('root')
 );
 

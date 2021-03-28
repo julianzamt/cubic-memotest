@@ -1,6 +1,4 @@
-import React, { useState } from "react"
 import Dialog from '@material-ui/core/Dialog';
-import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import "./AboutModal.css"
 import logo from "../img/cube-outline.svg"
@@ -11,7 +9,6 @@ import TwitterIcon from '@material-ui/icons/Twitter';
 
 function AboutModal(props) {
     const { onClose, open } = props;
-    const [page, setPage] = useState(1)
 
     const handleClose = () => {
         onClose();

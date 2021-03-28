@@ -15,7 +15,6 @@
     ],
     "theme_color": "#ffffff",
     "background_color": "#ffffff",
-    "start_url": "https://cubic-memotest.web.app/#/",
     "display": "standalone",
     "orientation": "portrait"
 }

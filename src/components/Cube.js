@@ -67,7 +67,6 @@ const Cube = (props) => {
     useEffect(() => {
         if (currentCards.length === 2) {
             // copy states to use them before next render
-            console.log("tries" + tries)
             let activeFacesSync = activeFaces
             let score = context.score
             if (tries !== 0) { setTries(prevState => prevState - 1) }
@@ -140,7 +139,6 @@ const Cube = (props) => {
 
             // reset active cards if game isn't over
             if (tries > 1 && activeFaces.length) {
-                console.log("activeFaces: " + activeFacesSync)
                 setTimeout(() => {
                     if (activeFacesSync.includes("front")) { setFrontFlip(false) }
                     if (activeFacesSync.includes("back")) { setBackFlip(false) }
@@ -149,7 +147,7 @@ const Cube = (props) => {
                     if (activeFacesSync.includes("top")) { setTopFlip(false) }
                     if (activeFacesSync.includes("bottom")) { setBottomFlip(false) }
                     setLockCards(false)
-                }, 600)
+                }, 500)
                 setCurrentCards([])
                 setCurrentFaces([])
             }

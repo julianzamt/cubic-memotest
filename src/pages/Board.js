@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react"
+import React, { useState, useContext, useEffect } from "react"
 import "./Board.css"
 import Cube from "../components/Cube"
 import AppContext from "../context/AppContext"
@@ -16,9 +16,12 @@ const Board = (props) => {
     // Focus, GO
     const [showFocus, setShowFocus] = useState(true)
 
-    setTimeout(() => {
-        setShowFocus(false)
-    }, 3000)
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            setShowFocus(false)
+        }, 3000)
+        return () => clearTimeout(timeout)
+    }, [])
 
     // Lifted states for use in Timer, Tries, Bonus & level setup
     let levelTries = null

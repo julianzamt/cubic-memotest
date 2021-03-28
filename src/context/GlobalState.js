@@ -24,6 +24,12 @@ const GlobalState = (props) => {
         history.push("/")
     }
 
+    const initialize = () => {
+        setScore(0)
+        setLevel(1)
+        history.push("/")
+    }
+
     return (
         <AppContext.Provider
             value={{
@@ -41,7 +47,8 @@ const GlobalState = (props) => {
                 highscore: highscore,
                 setHighscore: setHighscore,
                 ranking: ranking,
-                setRanking: setRanking
+                setRanking: setRanking,
+                initialize: initialize
             }}
         >
             {props.children}

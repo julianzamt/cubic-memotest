@@ -10,7 +10,7 @@
     animation: appear 2s ease-in-out;
     animation-fill-mode: both;
     opacity: 0;
-    font-family: uaSquare;
+    font-family: uaSquare, Georgia;
 }
 
 @keyframes appear {

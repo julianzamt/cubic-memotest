@@ -41,7 +41,13 @@
     .start__button {
         transition: box-shadow 0.2s;
     }
+    .instructions__button {
+        transition: box-shadow 0.2s;
+    }
     .start__button:hover {
+        box-shadow: 1px 1px 7px 0px rgba(0,0,0,0.25)
+    }
+    .instructions__button:hover {
         box-shadow: 1px 1px 7px 0px rgba(0,0,0,0.25)
     }
   }

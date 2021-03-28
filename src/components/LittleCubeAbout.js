@@ -1,18 +1,18 @@
 import "./LittleCubeAbout.css"
 
-const LittleCube = () => {
+const LittleCubeAbout = () => {
     return (
-        <div className="little__scene">
-            <div className="little__cube">
-                <div className="little__cube__face"></div>
-                <div className="little__cube__face"></div>
-                <div className="little__cube__face"></div>
-                <div className="little__cube__face"></div>
-                <div className="little__cube__face"></div>
-                <div className="little__cube__face"></div>
+        <div className="little__scene_about">
+            <div className="little__cube_about">
+                <div className="little__cube__face_about"></div>
+                <div className="little__cube__face_about"></div>
+                <div className="little__cube__face_about"></div>
+                <div className="little__cube__face_about"></div>
+                <div className="little__cube__face_about"></div>
+                <div className="little__cube__face_about"></div>
             </div>
         </div>
     )
 }
 
-export default LittleCube
+export default LittleCubeAbout

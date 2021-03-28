@@ -5,7 +5,6 @@ import instructions_1 from "../img/instructions/instructions_1.png"
 import instructions_2 from "../img/instructions/instructions_2.png"
 import instructions_3 from "../img/instructions/instructions_3.png"
 import instructions_4 from "../img/instructions/instructions_4.png"
-import IconButton from '@material-ui/core/IconButton';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import CloseIcon from '@material-ui/icons/Close';
@@ -33,9 +32,9 @@ function InstructionsModal(props) {
             <div className="instructions__container">
                 {page === 1 ?
                     <div className="page__container">
-                        <IconButton className="nextButton">
-                            <NavigateNextIcon id="next" onClick={handleChange} />
-                        </IconButton>
+
+                        <NavigateNextIcon className="nextButton" id="next" onClick={handleChange} />
+
                         <img src={instructions_1} alt="instructions_1" className="instructionsImg" onDragStart={(e) => { e.preventDefault() }} />
                         <div className="instructions__text">Drag the object</div>
                         <img src={instructions_2} alt="instructions_2" className="instructionsImg" onDragStart={(e) => { e.preventDefault() }} />
@@ -45,9 +44,7 @@ function InstructionsModal(props) {
                     </div>
                     :
                     <div className="page__container">
-                        <IconButton className="prevButton">
-                            <NavigateBeforeIcon id="previous" onClick={handleChange} />
-                        </IconButton>
+                        <NavigateBeforeIcon className="prevButton" id="previous" onClick={handleChange} />
                         <div style={{ textAlign: "center" }}>
                             <div className="timeTries">Time / Tries</div>
                             <div className="instructions__text">But stay focused, and be fast! You have limited resources.</div>

@@ -4,7 +4,6 @@ import Button from 'react-bootstrap/Button'
 import Spinner from 'react-bootstrap/Spinner'
 import firebase from '../config/firebase'
 import Alert from 'react-bootstrap/Alert'
-import { useHistory } from "react-router-dom"
 import AppContext from "../context/AppContext"
 import "./Registro.css"
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
@@ -22,7 +21,6 @@ function Registro(props) {
     const [error, setError] = useState(false)
     const [errorMessage, setErrorMessage] = useState("")
 
-    const history = useHistory()
     const context = useContext(AppContext)
 
     function handleSubmit(e) {
@@ -51,8 +49,7 @@ function Registro(props) {
                 .then((data) => {
                     firebase.db.collection("Usuarios").doc(data.user.uid).set({
                         username: username,
-                        email: email,
-                        maxScore: 0,
+                        email: email
                     })
                 })
                 .then(() => { return (firebase.auth.signInWithEmailAndPassword(email, password)) })
@@ -65,10 +62,12 @@ function Registro(props) {
                     localStorage.setItem("username", user["username"])
                     context.setUsername(localStorage.getItem("username"))
                     setSpinner(false)
-                    props.setFeedbackFlag(true)
                     props.setFeedbackMessage("Succesfully registered and logged in.")
+                    props.setFeedbackFlag(true)
                     props.setInitialScreenFlag(true)
-                    history.push("/")
+                    props.setFinalFlag(false)
+                    props.setWinFlag(false)
+                    context.initialize()
                 })
                 .catch((err) => {
                     setError(true)

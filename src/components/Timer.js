@@ -27,7 +27,6 @@ const Timer = (props) => {
         else if (time < 0) {
             // Add score and get rankings
             if (context.login) {
-                console.log("timer Loose logged")
                 rankingRef.add({
                     username: context.username,
                     score: context.score

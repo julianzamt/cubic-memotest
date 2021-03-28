@@ -69,6 +69,8 @@ const App = () => {
                                 setFeedbackMessage={setFeedbackMessage}
                                 initialScreenFlag={initialScreenFlag}
                                 setInitialScreenFlag={setInitialScreenFlag}
+                                setWinFlag={setWinFlag}
+                                setFinalFlag={setFinalFlag}
                             />
                         </Route>
                     </Switch>
