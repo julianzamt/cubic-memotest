@@ -5,6 +5,7 @@
     align-items: center;
     font-family: uaSquare;
     user-select: none;
+    padding: 1em;
 }
 
 .time {
@@ -29,8 +30,10 @@
 }
 
 .timeup {
-    font-size: 9vmin;
+    font-size: 7vmin;
     justify-self: center;
+    align-self: center;
+    text-align: center;
 }
 
 .timer__hidden {
