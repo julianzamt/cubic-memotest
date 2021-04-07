@@ -48,7 +48,7 @@ const Final = (props) => {
             <div className="final__score">Score {context.score} pts</div>
             <div style={{ textAlign: "center" }}>
                 <div>Thanks for playing Cubic Memotest (Demo)</div>
-                <div>©2021 Julián Zamt <span id="about" className="about" onClick={handleClick}>| About</span></div>
+                <div>©2021 Julián Zamt | <span id="about" className="about" onClick={handleClick}>About</span></div>
             </div>
             <Ranking />
             <div className="buttons__container">

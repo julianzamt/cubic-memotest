@@ -66,40 +66,58 @@ const Cube = (props) => {
         ])
     }
 
-    if (currentCards.length === 2) {
-        // copy states to use them before next render
-        let activeFacesSync = activeFaces
-        let score = context.score
-        if (tries !== 0) { setTries(prevState => prevState - 1) }
-        setLockCards(true)
+    useEffect(() => {
+        if (currentCards.length === 2) {
+            // copy states to use them before next render
+            let activeFacesSync = activeFaces
+            let score = context.score
+            if (tries !== 0) { setTries(prevState => prevState - 1) }
+            setLockCards(true)
 
-        // If scores
-        if (currentCards[0] === currentCards[1] && tries !== 0) {
-            context.setScore(context.score + 100)
-            score = score + 100
-            // Filter faces from actives
-            activeFacesSync = activeFaces.filter(item => !currentFaces.includes(item))
-            setActiveFaces(activeFacesSync)
-        }
-        // Win the game!
-        if (!activeFacesSync.length) {
-            setWinAnimationFlag(true)
-            setStopTimeFlag(true)
-            setTimeout(() => {
-                setWinFlag(true)
-            }, 2000)
-        }
-        // Loose
-        else if (tries === 1) {
-            setLooseAnimationFlag(true)
-            setStopTimeFlag(true)
-            // Add score and get rankings
-            if (context.login) {
-                rankingRef.add({
-                    username: context.username,
-                    score: score
-                })
-                    .then(rankingRef.orderBy("score", "desc").limit(10).get()
+            // If scores
+            if (currentCards[0] === currentCards[1] && tries !== 0) {
+                context.setScore(context.score + 100)
+                score = score + 100
+                // Filter faces from actives
+                activeFacesSync = activeFaces.filter(item => !currentFaces.includes(item))
+                setActiveFaces(activeFacesSync)
+            }
+            // Win the game!
+            if (!activeFacesSync.length) {
+                setWinAnimationFlag(true)
+                setStopTimeFlag(true)
+                setTimeout(() => {
+                    setWinFlag(true)
+                }, 2000)
+            }
+            // Loose
+            else if (tries === 1) {
+                setLooseAnimationFlag(true)
+                setStopTimeFlag(true)
+                // Add score and get rankings
+                if (context.login) {
+                    rankingRef.add({
+                        username: context.username,
+                        score: score
+                    })
+                        .then(rankingRef.orderBy("score", "desc").limit(10).get()
+                            .then((querySnapshot) => {
+                                const ranking = querySnapshot.docs.map((item, index) =>
+                                    <HighScore
+                                        key={item.id}
+                                        index={index + 1}
+                                        username={item.data().username}
+                                        score={item.data().score}
+                                    />
+                                )
+                                context.setRanking(ranking)
+                            }))
+                        .catch((error) => {
+                            console.log("Error getting documents: ", error);
+                        });
+                }
+                else {
+                    rankingRef.orderBy("score", "desc").limit(10).get()
                         .then((querySnapshot) => {
                             const ranking = querySnapshot.docs.map((item, index) =>
                                 <HighScore
@@ -110,48 +128,33 @@ const Cube = (props) => {
                                 />
                             )
                             context.setRanking(ranking)
-                        }))
-                    .catch((error) => {
-                        console.log("Error getting documents: ", error);
-                    });
+                        })
+                        .catch((error) => {
+                            console.log("Error getting documents: ", error);
+                        });
+                }
+                setTimeout(() => {
+                    setFinalFlag(true)
+                }, 3000)
             }
-            else {
-                rankingRef.orderBy("score", "desc").limit(10).get()
-                    .then((querySnapshot) => {
-                        const ranking = querySnapshot.docs.map((item, index) =>
-                            <HighScore
-                                key={item.id}
-                                index={index + 1}
-                                username={item.data().username}
-                                score={item.data().score}
-                            />
-                        )
-                        context.setRanking(ranking)
-                    })
-                    .catch((error) => {
-                        console.log("Error getting documents: ", error);
-                    });
-            }
-            setTimeout(() => {
-                setFinalFlag(true)
-            }, 3000)
-        }
 
-        // reset active cards if game isn't over
-        if (tries > 1 && activeFaces.length) {
-            setTimeout(() => {
-                if (activeFacesSync.includes("front")) { setFrontFlip(false) }
-                if (activeFacesSync.includes("back")) { setBackFlip(false) }
-                if (activeFacesSync.includes("left")) { setLeftFlip(false) }
-                if (activeFacesSync.includes("right")) { setRightFlip(false) }
-                if (activeFacesSync.includes("top")) { setTopFlip(false) }
-                if (activeFacesSync.includes("bottom")) { setBottomFlip(false) }
-                setLockCards(false)
-            }, 500)
-            setCurrentCards([])
-            setCurrentFaces([])
+            // reset active cards if game isn't over
+            if (tries > 1 && activeFaces.length) {
+                setTimeout(() => {
+                    if (activeFacesSync.includes("front")) { setFrontFlip(false) }
+                    if (activeFacesSync.includes("back")) { setBackFlip(false) }
+                    if (activeFacesSync.includes("left")) { setLeftFlip(false) }
+                    if (activeFacesSync.includes("right")) { setRightFlip(false) }
+                    if (activeFacesSync.includes("top")) { setTopFlip(false) }
+                    if (activeFacesSync.includes("bottom")) { setBottomFlip(false) }
+                    setLockCards(false)
+                }, 500)
+                setCurrentCards([])
+                setCurrentFaces([])
+            }
         }
-    }
+    }, [currentCards, activeFaces, context, tries, setLockCards, setTries, currentFaces, setWinAnimationFlag, setStopTimeFlag, setWinFlag, setLooseAnimationFlag, rankingRef, setFinalFlag])
+
 
 
     /* Rotate on drag*/

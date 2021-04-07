@@ -41,10 +41,10 @@ function AboutModal(props) {
 
                 <div className="about__text">This game <i>is being made</i> entirely in React and -almost- pure CSS, using firebase for the scores database.</div>
                 <div className="about__text">
-                    I wish to deeply thank to <a href="https://twitter.com/anatudor" rel="noreferrer" target="_blank" style={{ textDecoration: "none", color: "gray" }}>@anatudor</a> and <a href="https://twitter.com/desandro" rel="noreferrer" target="_blank" style={{ textDecoration: "none", color: "gray" }}> @desandro</a>
-                    . Without their insightfull teachings about CSS 3d transforms this wouldn´t have been possible.
+                    I wish to deeply thank to <a href="https://twitter.com/anatudor" rel="noreferrer" target="_blank" style={{ textDecoration: "none", color: "gray" }}>@anatudor</a> and <a href="https://twitter.com/desandro" rel="noreferrer" target="_blank" style={{ textDecoration: "none", color: "gray" }}> @desandro </a>
+                    for their insightfull teachings about CSS 3d transforms.
                 </div>
-                <div className="about__text">Also thanks to Guille Ares and Nati Grandal for their loving support.</div>
+
                 <div className="about__text">julizamt@gmail.com</div>
                 <div className="about__text">
                     <a href="https://github.com/julizamt" rel="noreferrer" target="_blank" >
