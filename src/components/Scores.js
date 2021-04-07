@@ -21,8 +21,8 @@ const Scores = () => {
 
     return (
         <div className="scores__container">
-            <div>Score {context.score}</div>
-            <div>Highscore {context.highscore}</div>
+            <div>Score {String(context.score).padStart(4, "0")}</div>
+            <div>Highscore {String(context.highscore).padStart(4, "0")}</div>
         </div>
     )
 }

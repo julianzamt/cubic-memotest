@@ -9,7 +9,6 @@ import { Route, Switch } from "react-router"
 import InitialScreen from "./pages/InitialScreen"
 import Final from "./pages/Final"
 import "./App.css"
-import "inobounce"
 
 const App = () => {
 
