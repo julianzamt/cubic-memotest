@@ -14,22 +14,16 @@ const Final = (props) => {
         setOpen(false);
     };
 
-    const context = useContext(AppContext)
+    const { startGame, exitGame, bonusFlag, score, login } = useContext(AppContext)
 
     const handleClick = (e) => {
         const name = e.target.name
         const id = e.target.id
         if (name === "play__again") {
-            // TODO initialize()
-            props.setFinalFlag(false)
-            props.setWinFlag(false)
-            context.setScore(0)
+            startGame();
         }
         else if (name === "exit") {
-            props.setFinalFlag(false)
-            props.setWinFlag(false)
-            context.setScore(0)
-            props.setInitialScreenFlag(true)
+            exitGame();
         }
         else if (id === "about") {
             setOpen(true);
@@ -44,8 +38,8 @@ const Final = (props) => {
 
     return (
         <div className="final__container">
-            {props.winFlag ? <a.div className="result" style={standUp}> You win! :)</a.div> : <a.div className="result" style={standUp}>You lose :(</a.div>}
-            <div className="final__score">Score {context.score} pts</div>
+            {bonusFlag ? <a.div className="result" style={standUp}> You win! :)</a.div> : <a.div className="result" style={standUp}>You lose :(</a.div>}
+            <div className="final__score">Score {score} pts</div>
             <div style={{ textAlign: "center" }}>
                 <div>Thanks for playing Cubic Memotest (Demo)</div>
                 <div>©2021 Julián Zamt | <span id="about" className="about" onClick={handleClick}>About</span></div>
@@ -55,7 +49,7 @@ const Final = (props) => {
                 <button onClick={handleClick} name="play__again" className="final__button">Play again</button>
                 <button onClick={handleClick} name="exit" className="final__button">Exit Game</button>
             </div>
-            {props.feedbackFlag || !context.login ? <Feedback setFeedbackFlag={props.setFeedbackFlag} feedbackMessage={props.feedbackMessage} setFeedbackMessage={props.setFeedbackMessage} feedbackFlag={props.feedbackFlag} /> : null}
+            {props.feedbackFlag || login ? <Feedback setFeedbackFlag={props.setFeedbackFlag} feedbackMessage={props.feedbackMessage} setFeedbackMessage={props.setFeedbackMessage} feedbackFlag={props.feedbackFlag} /> : null}
             <AboutModal open={open} onClose={handleClose} />
         </div>
     )

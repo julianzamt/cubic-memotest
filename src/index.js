@@ -5,11 +5,14 @@ import App from './App';
 // import reportWebVitals from './reportWebVitals';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import GlobalState from "./context/GlobalState"
 
 ReactDOM.render(
   <div>
-    <CssBaseline />
-    <App />
+    <GlobalState>
+      <CssBaseline />
+      <App />
+    </GlobalState>
   </div>,
   document.getElementById('root')
 );

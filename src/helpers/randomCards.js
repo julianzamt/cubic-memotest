@@ -40,7 +40,7 @@ const francellas = [
 ]
 
 function sortCubeCards() {
-    /* Random Cube Francellas */
+    /* Random Cube Cards */
     // Select 3 cards of deck
     let cubeCards = []
     let random = null
@@ -53,6 +53,7 @@ function sortCubeCards() {
     // Duplicate them 
     cubeCards = cubeCards.concat(cubeCards)
     // Random Sort
+    // TODO - ver Fishes-Yates Algorithm (https://medium.com/@nitinpatel_20236/how-to-shuffle-correctly-shuffle-an-array-in-javascript-15ea3f84bfb)
     cubeCards.sort(() => Math.random() - 0.5)
     return cubeCards
 }
