@@ -36,7 +36,7 @@ const Timer = (props) => {
     }, [time, setTime, stopTimeFlag]);
 
     return (
-        <div className={bonusFlag ? "timer__container timer__hidden" : "timer__container"} >
+        <div className="timer__container" >
             {hide ? null : <div className="timer__text">Time</div>}
             {timeUp ? <div className="timeup">Time´s up!</div> :
                 <div className={beat ? "time beat" : "time"}>{time}</div>
