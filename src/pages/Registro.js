@@ -64,10 +64,7 @@ function Registro(props) {
                     setSpinner(false)
                     props.setFeedbackMessage("Succesfully registered and logged in.")
                     props.setFeedbackFlag(true)
-                    props.setInitialScreenFlag(true)
-                    props.setFinalFlag(false)
-                    props.setWinFlag(false)
-                    context.initialize()
+                    context.exitGame()
                 })
                 .catch((err) => {
                     setError(true)

@@ -6,13 +6,17 @@ import App from './App';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import GlobalState from "./context/GlobalState"
+import { BrowserRouter } from 'react-router-dom';
+
 
 ReactDOM.render(
   <div>
-    <GlobalState>
-      <CssBaseline />
-      <App />
-    </GlobalState>
+    <BrowserRouter>
+      <GlobalState>
+        <CssBaseline />
+        <App />
+      </GlobalState>
+    </BrowserRouter>
   </div>,
   document.getElementById('root')
 );

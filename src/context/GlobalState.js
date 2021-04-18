@@ -24,6 +24,7 @@ const GlobalState = (props) => {
     const [stopTimeFlag, setStopTimeFlag] = useState(false)
 
     const history = useHistory()
+    console.log(history)
 
     const rankingRef = firebase.db.collection("Ranking")
 
@@ -109,10 +110,14 @@ const GlobalState = (props) => {
     }
 
     const exitGame = () => {
-        setFinalFlag(false)
-        setBonusFlag(false)
-        setScore(0)
-        setInitialScreenFlag(true)
+        setFinalFlag(false);
+        setBonusFlag(false);
+        setWinAnimationFlag(false);
+        setLoseAnimationFlag(false)
+        setStopTimeFlag(false);
+        setLockCards(false);
+        setInitialScreenFlag(true);
+        history.push("/");
     }
 
     return (

@@ -4,7 +4,6 @@ import React, { useState, useContext } from "react"
 import AppContext from "./context/AppContext"
 import Board from "./pages/Board"
 import Registro from "./pages/Registro"
-import { BrowserRouter } from 'react-router-dom';
 import { Route, Switch } from "react-router"
 import InitialScreen from "./pages/InitialScreen"
 import Final from "./pages/Final"
@@ -19,47 +18,46 @@ const App = () => {
     const [feedbackMessage, setFeedbackMessage] = useState(null)
 
     return (
-        <BrowserRouter>
-            <div className="app__container">
-                <Header
-                    setFeedbackFlag={setFeedbackFlag}
-                    setFeedbackMessage={setFeedbackMessage}
-                />
-                <Switch>
-                    <Route exact path='/'>
-                        {
-                            initialScreenFlag ?
-                                <InitialScreen
+
+        <div className="app__container">
+            <Header
+                setFeedbackFlag={setFeedbackFlag}
+                setFeedbackMessage={setFeedbackMessage}
+            />
+            <Switch>
+                <Route exact path='/'>
+                    {
+                        initialScreenFlag ?
+                            <InitialScreen
+                                feedbackFlag={feedbackFlag}
+                                setFeedbackFlag={setFeedbackFlag}
+                                feedbackMessage={feedbackMessage}
+                                setFeedbackMessage={setFeedbackMessage}
+                            /> :
+                            finalFlag ?
+                                <Final
                                     feedbackFlag={feedbackFlag}
                                     setFeedbackFlag={setFeedbackFlag}
                                     feedbackMessage={feedbackMessage}
                                     setFeedbackMessage={setFeedbackMessage}
                                 /> :
-                                finalFlag ?
-                                    <Final
-                                        feedbackFlag={feedbackFlag}
-                                        setFeedbackFlag={setFeedbackFlag}
-                                        feedbackMessage={feedbackMessage}
-                                        setFeedbackMessage={setFeedbackMessage}
-                                    /> :
-                                    <Board
-                                        feedbackFlag={feedbackFlag}
-                                        setFeedbackFlag={setFeedbackFlag}
-                                        feedbackMessage={feedbackMessage}
-                                        setFeedbackMessage={setFeedbackMessage}
-                                    />
-                        }
-                    </Route>
-                    <Route exact path='/registro'>
-                        <Registro
-                            setFeedbackFlag={setFeedbackFlag}
-                            setFeedbackMessage={setFeedbackMessage}
-                        />
-                    </Route>
-                </Switch>
-                <Footer />
-            </div>
-        </BrowserRouter>
+                                <Board
+                                    feedbackFlag={feedbackFlag}
+                                    setFeedbackFlag={setFeedbackFlag}
+                                    feedbackMessage={feedbackMessage}
+                                    setFeedbackMessage={setFeedbackMessage}
+                                />
+                    }
+                </Route>
+                <Route exact path='/registro'>
+                    <Registro
+                        setFeedbackFlag={setFeedbackFlag}
+                        setFeedbackMessage={setFeedbackMessage}
+                    />
+                </Route>
+            </Switch>
+            <Footer />
+        </div>
     )
 }
 
