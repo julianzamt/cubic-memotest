@@ -19,7 +19,6 @@ const Bonus = (props) => {
     useEffect(() => {
         context.setScore(context.score + totalBonusPoints)
         if (context.login) {
-            console.log("bonus logged")
             rankingRef.add({
                 username: context.username,
                 score: (context.score + totalBonusPoints)
@@ -61,7 +60,6 @@ const Bonus = (props) => {
 
     const handleClick = () => {
         props.setFinalFlag(true)
-        context.setInit(false)
     }
 
     const fadeIn = useSpring({

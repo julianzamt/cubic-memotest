@@ -9,7 +9,6 @@ const GlobalState = (props) => {
     const [score, setScore] = useState(0)
     const [level, setLevel] = useState(1)
     const [highscore, setHighscore] = useState(null)
-    const [init, setInit] = useState(true)
     const [ranking, setRanking] = useState([])
     const history = useHistory()
 
@@ -42,8 +41,6 @@ const GlobalState = (props) => {
                 setScore: setScore,
                 level: level,
                 setLevel: setLevel,
-                init: init,
-                setInit: setInit,
                 highscore: highscore,
                 setHighscore: setHighscore,
                 ranking: ranking,

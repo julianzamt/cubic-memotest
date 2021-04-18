@@ -7,6 +7,7 @@ import { useSpring, animated as a, config } from 'react-spring'
 import AboutModal from "../components/AboutModal"
 
 const Final = (props) => {
+    // About dialog logic
     const [open, setOpen] = useState(false)
 
     const handleClose = () => {
@@ -19,15 +20,14 @@ const Final = (props) => {
         const name = e.target.name
         const id = e.target.id
         if (name === "play__again") {
+            // TODO initialize()
             props.setFinalFlag(false)
             props.setWinFlag(false)
-            context.setInit(true)
             context.setScore(0)
         }
         else if (name === "exit") {
             props.setFinalFlag(false)
             props.setWinFlag(false)
-            context.setInit(true)
             context.setScore(0)
             props.setInitialScreenFlag(true)
         }

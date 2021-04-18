@@ -13,25 +13,52 @@ const Timer = (props) => {
     const { setFinalFlag, time, setTime, stopTimeFlag, setStopTimeFlag, setLooseAnimationFlag, setLockCards, winFlag } = props
 
     const [beat, setBeat] = useState(false)
-    let timeUp = false
-    let hide = false
+    const [timeUp, setTimeUp] = useState(false)
+    const [hide, setHide] = useState(false)
 
     useEffect(() => {
-        let timeout = null
+        console.log("I render gral" + time)
+        let timeout, timeoutLose = null;
         if (!stopTimeFlag) {
-            if (time >= 0) {
+            if (time > 0) {
                 timeout = setTimeout(() => setTime(prevState => prevState - 1), 1000)
+                time === 5 && setBeat(true)
             }
-            time === 5 && setBeat(true)
-        }
-        else if (time < 0) {
-            // Add score and get rankings
-            if (context.login) {
-                rankingRef.add({
-                    username: context.username,
-                    score: context.score
-                })
-                    .then(rankingRef.orderBy("score", "desc").limit(10).get()
+            else if (!time) {
+                console.log("Irender")
+                // TODO endGame(lose)
+                setTimeUp(true)
+                setHide(true)
+                setLockCards(true)
+                setLooseAnimationFlag(true)
+                setStopTimeFlag(true)
+                setTimeout(() => {
+                    setFinalFlag(true)
+                }, 3000)
+                // Add score and get rankings
+                if (context.login) {
+                    rankingRef.add({
+                        username: context.username,
+                        score: context.score
+                    })
+                        .then(rankingRef.orderBy("score", "desc").limit(10).get()
+                            .then((querySnapshot) => {
+                                const ranking = querySnapshot.docs.map((item, index) =>
+                                    <HighScore
+                                        key={item.id}
+                                        index={index + 1}
+                                        username={item.data().username}
+                                        score={item.data().score}
+                                    />
+                                )
+                                context.setRanking(ranking)
+                            }))
+                        .catch((error) => {
+                            console.log("Error getting documents: ", error);
+                        });
+                }
+                else {
+                    rankingRef.orderBy("score", "desc").limit(10).get()
                         .then((querySnapshot) => {
                             const ranking = querySnapshot.docs.map((item, index) =>
                                 <HighScore
@@ -42,46 +69,24 @@ const Timer = (props) => {
                                 />
                             )
                             context.setRanking(ranking)
-                        }))
-                    .catch((error) => {
-                        console.log("Error getting documents: ", error);
-                    });
-            }
-            else {
-                rankingRef.orderBy("score", "desc").limit(10).get()
-                    .then((querySnapshot) => {
-                        const ranking = querySnapshot.docs.map((item, index) =>
-                            <HighScore
-                                key={item.id}
-                                index={index + 1}
-                                username={item.data().username}
-                                score={item.data().score}
-                            />
-                        )
-                        context.setRanking(ranking)
-                    })
-                    .catch((error) => {
-                        console.log("Error getting documents: ", error);
-                    });
+                        })
+                        .catch((error) => {
+                            console.log("Error getting documents: ", error);
+                        });
+                }
             }
         }
-        // if win, during Bonus
+
+        // if stopTimeFlag == true
         else { setBeat(false) }
 
-        return () => clearTimeout(timeout)
+        return () => { clearTimeout(timeout); clearTimeout(timeoutLose) }
 
     }, [time, setTime, stopTimeFlag, rankingRef]);
 
-    if (time < 0) {
-        timeUp = true
-        hide = true
-        setLockCards(true)
-        setLooseAnimationFlag(true)
-        setStopTimeFlag(true)
-        setTimeout(() => {
-            setFinalFlag(true)
-        }, 3000)
-    }
+    // if (time < 0) {
+
+    // }
 
     return (
         <div className={winFlag ? "timer__container timer__hidden" : "timer__container"} >

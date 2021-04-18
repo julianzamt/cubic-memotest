@@ -14,7 +14,7 @@ const Feedback = (props) => {
         from: { opacity: 1 },
         delay: 2500,
         config: { ...config.slow },
-        onRest: () => { props.setFeedbackFlag(false); props.setFeedbackMessage(null) },
+        onRest: () => { props.setFeedbackFlag(false); props.setFeedbackMessage('') },
     })
 
     return (

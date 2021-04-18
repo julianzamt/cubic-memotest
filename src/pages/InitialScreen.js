@@ -5,6 +5,7 @@ import React, { useState } from "react"
 import InstructionsModal from "../components/InstructionsModal"
 
 const InitialScreen = (props) => {
+    // Instructions dialog logic
     const [open, setOpen] = useState(false)
 
     const handleClose = () => {
@@ -17,6 +18,7 @@ const InitialScreen = (props) => {
             setOpen(true);
         }
         else {
+            // TODO context.initialize()
             props.setInitialScreenFlag(false)
             props.setFinalFlag(false)
         }

@@ -24,31 +24,31 @@ const Board = (props) => {
     }, [])
 
     // Lifted states for use in Timer, Tries, Bonus & level setup
-    let levelTries = null
-    let levelTime = null
-    let levelClearPoints = null
+    let levelTries = 0;
+    let levelTime = 0;
+    let levelClearPoints = 0;
     switch (context.level) {
         case 1:
             levelTries = 6
             levelTime = 20
             levelClearPoints = 1000
-            break
+            break;
         default:
             levelTries = 6
             levelTime = 20
             levelClearPoints = 1000
-            break
+            break;
     }
     const [tries, setTries] = useState(levelTries)
     const [time, setTime] = useState(levelTime)
     const [stopTimeFlag, setStopTimeFlag] = useState(false)
+
     // Final animations
     const [winAnimationFlag, setWinAnimationFlag] = useState(false)
     const [looseAnimationFlag, setLooseAnimationFlag] = useState(false)
 
     // Prevent more than 2 cards being picked simultaneously
     const [lockCards, setLockCards] = useState(false)
-
 
     return (
         <div>
@@ -57,11 +57,12 @@ const Board = (props) => {
                     <Scores />
                     <Timer setFinalFlag={props.setFinalFlag} time={time} setTime={setTime} stopTimeFlag={stopTimeFlag} setLooseAnimationFlag={setLooseAnimationFlag} setStopTimeFlag={setStopTimeFlag} setLockCards={setLockCards} setWinFlag={props.setWinFlag} />
                     <div className="object__container">
+                        {/* TODO renombrar winFlag a bonusFlag*/}
                         {props.winFlag ? <Bonus setFinalFlag={props.setFinalFlag} time={time} tries={tries} levelClearPoints={levelClearPoints} /> :
                             <Cube tries={tries} setTries={setTries} setFinalFlag={props.setFinalFlag} setWinFlag={props.setWinFlag} winFlag={props.winFlag} finalFlag={props.finalFlag} stopTimeFlag={stopTimeFlag} setStopTimeFlag={setStopTimeFlag} winAnimationFlag={winAnimationFlag} setWinAnimationFlag={setWinAnimationFlag} looseAnimationFlag={looseAnimationFlag} setLooseAnimationFlag={setLooseAnimationFlag} setLockCards={setLockCards} lockCards={lockCards} />
                         }
                     </div>
-                    <Tries tries={tries} setWinFlag={props.setWinFlag} />
+                    <Tries tries={tries} />
                     {props.feedbackFlag || !context.login ? <Feedback setFeedbackFlag={props.setFeedbackFlag} feedbackMessage={props.feedbackMessage} setFeedbackMessage={props.setFeedbackMessage} feedbackFlag={props.feedbackFlag} /> : null}
                 </div>
             }

@@ -26,7 +26,6 @@ const App = () => {
                     <Header
                         setFeedbackFlag={setFeedbackFlag}
                         setFeedbackMessage={setFeedbackMessage}
-                        initialScreenFlag={initialScreenFlag}
                     />
                     <Switch>
                         <Route exact path='/'>
