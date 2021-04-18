@@ -8,8 +8,6 @@ const Timer = (props) => {
 
     const { endGame, stopTimeFlag, bonusFlag } = useContext(AppContext)
 
-    const rankingRef = firebase.db.collection("Ranking")
-
     const { time, setTime } = props
 
     const [beat, setBeat] = useState(false)
