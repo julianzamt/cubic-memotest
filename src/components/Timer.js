@@ -33,7 +33,7 @@ const Timer = (props) => {
 
         return () => { clearTimeout(timeout) }
 
-    }, [time, setTime]);
+    }, [time, setTime, stopTimeFlag]);
 
     return (
         <div className={bonusFlag ? "timer__container timer__hidden" : "timer__container"} >
