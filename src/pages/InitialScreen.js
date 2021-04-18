@@ -1,10 +1,14 @@
 import LittleCube from "../components/LittleCube"
 import "./InitialScreen.css"
 import Feedback from "../components/Feedback";
-import React, { useState } from "react"
+import React, { useState, useContext } from "react"
+import AppContext from "../context/AppContext"
 import InstructionsModal from "../components/InstructionsModal"
 
 const InitialScreen = (props) => {
+
+    const { startGame } = useContext(AppContext)
+
     // Instructions dialog logic
     const [open, setOpen] = useState(false)
 
@@ -19,8 +23,7 @@ const InitialScreen = (props) => {
         }
         else {
             // TODO context.initialize()
-            props.setInitialScreenFlag(false)
-            props.setFinalFlag(false)
+            startGame()
         }
     }
 

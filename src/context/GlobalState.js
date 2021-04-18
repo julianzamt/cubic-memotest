@@ -1,6 +1,8 @@
 import React, { useState } from "react"
 import AppContext from "./AppContext"
 import { useHistory } from "react-router-dom"
+import firebase from "../config/firebase"
+import HighScore from "../components/HighScore"
 
 const GlobalState = (props) => {
 
@@ -10,7 +12,21 @@ const GlobalState = (props) => {
     const [level, setLevel] = useState(1)
     const [highscore, setHighscore] = useState(null)
     const [ranking, setRanking] = useState([])
+    const [bonusFlag, setBonusFlag] = useState(false)
+    const [finalFlag, setFinalFlag] = useState(false)
+    const [initialScreenFlag, setInitialScreenFlag] = useState(true)
+    // Final animations
+    const [winAnimationFlag, setWinAnimationFlag] = useState(false)
+    const [loseAnimationFlag, setLoseAnimationFlag] = useState(false)
+    // Prevent more than 2 cards being picked simultaneously
+    const [lockCards, setLockCards] = useState(false)
+    // Stop time
+    const [stopTimeFlag, setStopTimeFlag] = useState(false)
+
     const history = useHistory()
+    console.log(history)
+
+    const rankingRef = firebase.db.collection("Ranking")
 
     const loginUser = () => {
         setLogin(true)
@@ -23,10 +39,85 @@ const GlobalState = (props) => {
         history.push("/")
     }
 
-    const initialize = () => {
-        setScore(0)
-        setLevel(1)
-        history.push("/")
+    const startGame = () => {
+        setScore(0);
+        setLevel(1);
+        setInitialScreenFlag(false);
+        setFinalFlag(false);
+        setBonusFlag(false);
+        setWinAnimationFlag(false);
+        setLoseAnimationFlag(false)
+        setStopTimeFlag(false);
+        setLockCards(false);
+    }
+
+    const endGame = (result) => {
+
+        if (result === "win") {
+            setWinAnimationFlag(true);
+            setLockCards(true);
+            setStopTimeFlag(true);
+            setTimeout(() => { setBonusFlag(true) }, 2000)
+        }
+
+        else if (result === "lose") {
+            setLockCards(true)
+            setLoseAnimationFlag(true)
+            setStopTimeFlag(true)
+            // Add score and get rankings
+            if (login) {
+                rankingRef.add({
+                    username: username,
+                    score: score
+                })
+                    .then(rankingRef.orderBy("score", "desc").limit(10).get()
+                        .then((querySnapshot) => {
+                            const ranking = querySnapshot.docs.map((item, index) =>
+                                <HighScore
+                                    key={item.id}
+                                    index={index + 1}
+                                    username={item.data().username}
+                                    score={item.data().score}
+                                />
+                            )
+                            setRanking(ranking)
+                        }))
+                    .catch((error) => {
+                        console.log("Error getting documents: ", error);
+                    });
+            }
+            else {
+                rankingRef.orderBy("score", "desc").limit(10).get()
+                    .then((querySnapshot) => {
+                        const ranking = querySnapshot.docs.map((item, index) =>
+                            <HighScore
+                                key={item.id}
+                                index={index + 1}
+                                username={item.data().username}
+                                score={item.data().score}
+                            />
+                        )
+                        setRanking(ranking)
+                    })
+                    .catch((error) => {
+                        console.log("Error getting documents: ", error);
+                    });
+            }
+            setTimeout(() => {
+                setFinalFlag(true)
+            }, 3000)
+        }
+    }
+
+    const exitGame = () => {
+        setFinalFlag(false);
+        setBonusFlag(false);
+        setWinAnimationFlag(false);
+        setLoseAnimationFlag(false)
+        setStopTimeFlag(false);
+        setLockCards(false);
+        setInitialScreenFlag(true);
+        history.push("/");
     }
 
     return (
@@ -45,7 +136,18 @@ const GlobalState = (props) => {
                 setHighscore: setHighscore,
                 ranking: ranking,
                 setRanking: setRanking,
-                initialize: initialize
+                startGame: startGame,
+                endGame: endGame,
+                exitGame: exitGame,
+                bonusFlag: bonusFlag,
+                finalFlag: finalFlag,
+                setFinalFlag: setFinalFlag,
+                initialScreenFlag: initialScreenFlag,
+                winAnimationFlag: winAnimationFlag,
+                loseAnimationFlag: loseAnimationFlag,
+                lockCards: lockCards,
+                setLockCards: setLockCards,
+                stopTimeFlag: stopTimeFlag
             }}
         >
             {props.children}

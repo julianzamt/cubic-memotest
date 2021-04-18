@@ -6,90 +6,37 @@ import firebase from "../config/firebase"
 
 const Timer = (props) => {
 
-    const context = useContext(AppContext)
+    const { endGame, stopTimeFlag, bonusFlag } = useContext(AppContext)
 
-    const rankingRef = firebase.db.collection("Ranking")
-
-    const { setFinalFlag, time, setTime, stopTimeFlag, setStopTimeFlag, setLooseAnimationFlag, setLockCards, winFlag } = props
+    const { time, setTime } = props
 
     const [beat, setBeat] = useState(false)
     const [timeUp, setTimeUp] = useState(false)
     const [hide, setHide] = useState(false)
 
     useEffect(() => {
-        console.log("I render gral" + time)
-        let timeout, timeoutLose = null;
+        let timeout = null;
         if (!stopTimeFlag) {
             if (time > 0) {
                 timeout = setTimeout(() => setTime(prevState => prevState - 1), 1000)
                 time === 5 && setBeat(true)
             }
             else if (!time) {
-                console.log("Irender")
-                // TODO endGame(lose)
                 setTimeUp(true)
                 setHide(true)
-                setLockCards(true)
-                setLooseAnimationFlag(true)
-                setStopTimeFlag(true)
-                setTimeout(() => {
-                    setFinalFlag(true)
-                }, 3000)
-                // Add score and get rankings
-                if (context.login) {
-                    rankingRef.add({
-                        username: context.username,
-                        score: context.score
-                    })
-                        .then(rankingRef.orderBy("score", "desc").limit(10).get()
-                            .then((querySnapshot) => {
-                                const ranking = querySnapshot.docs.map((item, index) =>
-                                    <HighScore
-                                        key={item.id}
-                                        index={index + 1}
-                                        username={item.data().username}
-                                        score={item.data().score}
-                                    />
-                                )
-                                context.setRanking(ranking)
-                            }))
-                        .catch((error) => {
-                            console.log("Error getting documents: ", error);
-                        });
-                }
-                else {
-                    rankingRef.orderBy("score", "desc").limit(10).get()
-                        .then((querySnapshot) => {
-                            const ranking = querySnapshot.docs.map((item, index) =>
-                                <HighScore
-                                    key={item.id}
-                                    index={index + 1}
-                                    username={item.data().username}
-                                    score={item.data().score}
-                                />
-                            )
-                            context.setRanking(ranking)
-                        })
-                        .catch((error) => {
-                            console.log("Error getting documents: ", error);
-                        });
-                }
+                endGame("lose")
             }
         }
 
         // if stopTimeFlag == true
         else { setBeat(false) }
 
-        return () => { clearTimeout(timeout); clearTimeout(timeoutLose) }
+        return () => { clearTimeout(timeout) }
 
-    }, [time, setTime, stopTimeFlag, rankingRef]);
-
-    // if (time < 0) {
-
-    // }
+    }, [time, setTime, stopTimeFlag]);
 
     return (
-        <div className={winFlag ? "timer__container timer__hidden" : "timer__container"} >
+        <div className="timer__container" >
             {hide ? null : <div className="timer__text">Time</div>}
             {timeUp ? <div className="timeup">Time´s up!</div> :
                 <div className={beat ? "time beat" : "time"}>{time}</div>

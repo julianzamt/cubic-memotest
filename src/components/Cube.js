@@ -2,18 +2,14 @@ import React, { useState, useEffect, useContext, useRef } from "react"
 import AppContext from "../context/AppContext"
 import logo from "../img/cube-outline.svg"
 import "./Cube.css"
-import { sortCubeCards } from "../helpers/randomFrancellas"
-import firebase from "../config/firebase"
-import HighScore from "../components/HighScore"
-import { addScoreToRanking } from "../services/Ranking_service"
+import { sortCubeCards } from "../helpers/randomCards"
 
 const Cube = (props) => {
 
-    const context = useContext(AppContext)
+    // { setLockCards, lockCards, endGame}
+    const { setLockCards, lockCards, endGame, score, setScore, winAnimationFlag, loseAnimationFlag } = useContext(AppContext)
 
-    const { tries, setTries, setFinalFlag, setWinFlag, looseAnimationFlag, setLooseAnimationFlag, winAnimationFlag, setWinAnimationFlag, lockCards, setStopTimeFlag, setLockCards } = props
-
-    const rankingRef = firebase.db.collection("Ranking")
+    const { tries, setTries } = props
 
     // Sort cards on game start with helper
     const [cubeCards] = useState(sortCubeCards())
@@ -32,8 +28,8 @@ const Cube = (props) => {
     const [activeFaces, setActiveFaces] = useState(["front", "back", "right", "left", "top", "bottom"])
 
     const handleClick = (e) => {
-        const eventCard = e.target.getAttribute("card")
-        const face = e.target.getAttribute("face")
+        const eventCard = e.target.getAttribute("card") // Position
+        const face = e.target.getAttribute("face") // Image
         switch (face) {
             case "front":
                 setFrontFlip(true)
@@ -70,76 +66,84 @@ const Cube = (props) => {
         if (currentCards.length === 2) {
             // copy states to use them before next render
             let activeFacesSync = activeFaces
-            let score = context.score
-            if (tries !== 0) { setTries(prevState => prevState - 1) }
+            let scoreSync = score
+            let triesSync = tries
+            if (triesSync) {
+                triesSync--
+                setTries(prevState => prevState - 1)
+            }
             setLockCards(true)
 
             // If scores
-            if (currentCards[0] === currentCards[1] && tries !== 0) {
-                context.setScore(context.score + 100)
-                score = score + 100
+            if (currentCards[0] === currentCards[1] && tries) {
+                setScore(score + 100)
                 // Filter faces from actives
                 activeFacesSync = activeFaces.filter(item => !currentFaces.includes(item))
                 setActiveFaces(activeFacesSync)
             }
+
             // Win the game!
+
             if (!activeFacesSync.length) {
-                setWinAnimationFlag(true)
-                setStopTimeFlag(true)
-                setTimeout(() => {
-                    setWinFlag(true)
-                }, 2000)
+                endGame("win")
+                // setWinAnimationFlag(true)
+                // setStopTimeFlag(true)
+                // setTimeout(() => {
+                //     setWinFlag(true)
+                // }, 2000)
             }
-            // Loose
-            else if (tries === 1) {
-                setLooseAnimationFlag(true)
-                setStopTimeFlag(true)
-                // Add score and get rankings
-                if (context.login) {
-                    rankingRef.add({
-                        username: context.username,
-                        score: score
-                    })
-                        .then(rankingRef.orderBy("score", "desc").limit(10).get()
-                            .then((querySnapshot) => {
-                                const ranking = querySnapshot.docs.map((item, index) =>
-                                    <HighScore
-                                        key={item.id}
-                                        index={index + 1}
-                                        username={item.data().username}
-                                        score={item.data().score}
-                                    />
-                                )
-                                context.setRanking(ranking)
-                            }))
-                        .catch((error) => {
-                            console.log("Error getting documents: ", error);
-                        });
-                }
-                else {
-                    rankingRef.orderBy("score", "desc").limit(10).get()
-                        .then((querySnapshot) => {
-                            const ranking = querySnapshot.docs.map((item, index) =>
-                                <HighScore
-                                    key={item.id}
-                                    index={index + 1}
-                                    username={item.data().username}
-                                    score={item.data().score}
-                                />
-                            )
-                            context.setRanking(ranking)
-                        })
-                        .catch((error) => {
-                            console.log("Error getting documents: ", error);
-                        });
-                }
-                setTimeout(() => {
-                    setFinalFlag(true)
-                }, 3000)
+
+            // Lose
+            else if (!triesSync) {
+                endGame("lose")
+                // setLooseAnimationFlag(true)
+                // setStopTimeFlag(true)
+                // // Add score and get rankings
+                // if (context.login) {
+                //     rankingRef.add({
+                //         username: context.username,
+                //         score: score
+                //     })
+                //         .then(rankingRef.orderBy("score", "desc").limit(10).get()
+                //             .then((querySnapshot) => {
+                //                 const ranking = querySnapshot.docs.map((item, index) =>
+                //                     <HighScore
+                //                         key={item.id}
+                //                         index={index + 1}
+                //                         username={item.data().username}
+                //                         score={item.data().score}
+                //                     />
+                //                 )
+                //                 context.setRanking(ranking)
+                //             }))
+                //         .catch((error) => {
+                //             console.log("Error getting documents: ", error);
+                //         });
+                // }
+                // else {
+                //     rankingRef.orderBy("score", "desc").limit(10).get()
+                //         .then((querySnapshot) => {
+                //             const ranking = querySnapshot.docs.map((item, index) =>
+                //                 <HighScore
+                //                     key={item.id}
+                //                     index={index + 1}
+                //                     username={item.data().username}
+                //                     score={item.data().score}
+                //                 />
+                //             )
+                //             context.setRanking(ranking)
+                //         })
+                //         .catch((error) => {
+                //             console.log("Error getting documents: ", error);
+                //         });
+                // }
+                // setTimeout(() => {
+                //     setFinalFlag(true)
+                // }, 3000)
             }
 
             // reset active cards if game isn't over
-            if (tries > 1 && activeFaces.length) {
+            if (triesSync && activeFaces.length) {
                 setTimeout(() => {
                     if (activeFacesSync.includes("front")) { setFrontFlip(false) }
                     if (activeFacesSync.includes("back")) { setBackFlip(false) }
@@ -153,7 +157,7 @@ const Cube = (props) => {
                 setCurrentFaces([])
             }
         }
-    }, [currentCards, activeFaces, context, tries, setLockCards, setTries, currentFaces, setWinAnimationFlag, setStopTimeFlag, setWinFlag, setLooseAnimationFlag, rankingRef, setFinalFlag])
+    }, [currentCards, activeFaces, tries, setLockCards, currentFaces])
 
 
 
@@ -216,7 +220,7 @@ const Cube = (props) => {
             onTouchEnd={release}
         >
             <div className={winAnimationFlag ? "cube win__animation" : "cube"} ref={_C}>
-                <div className={looseAnimationFlag ? "cube__face cube__face--front loose__animation" : "cube__face cube__face--front"}>
+                <div className={loseAnimationFlag ? "cube__face cube__face--front loose__animation" : "cube__face cube__face--front"}>
                     <div className="card__scene">
                         <div className={`card__object ${frontFlip ? "is-flipped" : null} ${lockCards ? "lockCards" : null}`} >
                             <div className="card__face card__face--front" onClick={handleClick} card={cubeCards[0]} face="front">
@@ -228,7 +232,7 @@ const Cube = (props) => {
                         </div>
                     </div>
                 </div>
-                <div className={looseAnimationFlag ? "cube__face cube__face--back loose__animation" : "cube__face cube__face--back"}>
+                <div className={loseAnimationFlag ? "cube__face cube__face--back loose__animation" : "cube__face cube__face--back"}>
                     <div className="card__scene">
                         <div className={`card__object ${backFlip ? "is-flipped" : null} ${lockCards ? "lockCards" : null}`}  >
                             <div className="card__face card__face--front" card={cubeCards[1]} face="back" onClick={handleClick}>
@@ -240,7 +244,7 @@ const Cube = (props) => {
                         </div>
                     </div>
                 </div>
-                <div className={looseAnimationFlag ? "cube__face cube__face--right loose__animation" : "cube__face cube__face--right"}>
+                <div className={loseAnimationFlag ? "cube__face cube__face--right loose__animation" : "cube__face cube__face--right"}>
                     <div className="card__scene">
                         <div className={`card__object ${rightFlip ? "is-flipped" : null} ${lockCards ? "lockCards" : null}`}  >
                             <div className="card__face card__face--front" card={cubeCards[2]} face="right" onClick={handleClick}>
@@ -252,7 +256,7 @@ const Cube = (props) => {
                         </div>
                     </div>
                 </div>
-                <div className={looseAnimationFlag ? "cube__face cube__face--left loose__animation" : "cube__face cube__face--left"}>
+                <div className={loseAnimationFlag ? "cube__face cube__face--left loose__animation" : "cube__face cube__face--left"}>
                     <div className="card__scene">
                         <div className={`card__object ${leftFlip ? "is-flipped" : null} ${lockCards ? "lockCards" : null}`} >
                             <div className="card__face card__face--front" card={cubeCards[3]} face="left" onClick={handleClick}>
@@ -264,7 +268,7 @@ const Cube = (props) => {
                         </div>
                     </div>
                 </div>
-                <div className={looseAnimationFlag ? "cube__face cube__face--top loose__animation" : "cube__face cube__face--top"}>
+                <div className={loseAnimationFlag ? "cube__face cube__face--top loose__animation" : "cube__face cube__face--top"}>
                     <div className="card__scene">
                         <div className={`card__object ${topFlip ? "is-flipped" : null} ${lockCards ? "lockCards" : null}`} >
                             <div className="card__face card__face--front" card={cubeCards[4]} face="top" onClick={handleClick}>
@@ -276,7 +280,7 @@ const Cube = (props) => {
                         </div>
                     </div>
                 </div>
-                <div className={looseAnimationFlag ? "cube__face cube__face--bottom loose__animation" : "cube__face cube__face--bottom"}>
+                <div className={loseAnimationFlag ? "cube__face cube__face--bottom loose__animation" : "cube__face cube__face--bottom"}>
                     <div className="card__scene">
                         <div className={`card__object ${bottomFlip ? "is-flipped" : null} ${lockCards ? "lockCards" : null}`} >
                             <div className="card__face card__face--front" card={cubeCards[5]} face="bottom" onClick={handleClick}>

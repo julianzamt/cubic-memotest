@@ -59,7 +59,7 @@ const Bonus = (props) => {
     }, [])
 
     const handleClick = () => {
-        props.setFinalFlag(true)
+        context.setFinalFlag(true)
     }
 
     const fadeIn = useSpring({

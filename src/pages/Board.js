@@ -41,25 +41,17 @@ const Board = (props) => {
     }
     const [tries, setTries] = useState(levelTries)
     const [time, setTime] = useState(levelTime)
-    const [stopTimeFlag, setStopTimeFlag] = useState(false)
-
-    // Final animations
-    const [winAnimationFlag, setWinAnimationFlag] = useState(false)
-    const [looseAnimationFlag, setLooseAnimationFlag] = useState(false)
-
-    // Prevent more than 2 cards being picked simultaneously
-    const [lockCards, setLockCards] = useState(false)
 
     return (
         <div>
             {showFocus ? <Focus /> :
                 <div className="board__container">
                     <Scores />
-                    <Timer setFinalFlag={props.setFinalFlag} time={time} setTime={setTime} stopTimeFlag={stopTimeFlag} setLooseAnimationFlag={setLooseAnimationFlag} setStopTimeFlag={setStopTimeFlag} setLockCards={setLockCards} setWinFlag={props.setWinFlag} />
+                    <Timer time={time} setTime={setTime} />
                     <div className="object__container">
                         {/* TODO renombrar winFlag a bonusFlag*/}
-                        {props.winFlag ? <Bonus setFinalFlag={props.setFinalFlag} time={time} tries={tries} levelClearPoints={levelClearPoints} /> :
-                            <Cube tries={tries} setTries={setTries} setFinalFlag={props.setFinalFlag} setWinFlag={props.setWinFlag} winFlag={props.winFlag} finalFlag={props.finalFlag} stopTimeFlag={stopTimeFlag} setStopTimeFlag={setStopTimeFlag} winAnimationFlag={winAnimationFlag} setWinAnimationFlag={setWinAnimationFlag} looseAnimationFlag={looseAnimationFlag} setLooseAnimationFlag={setLooseAnimationFlag} setLockCards={setLockCards} lockCards={lockCards} />
+                        {context.bonusFlag ? <Bonus time={time} tries={tries} levelClearPoints={levelClearPoints} /> :
+                            <Cube tries={tries} setTries={setTries} />
                         }
                     </div>
                     <Tries tries={tries} />

@@ -5,11 +5,18 @@ import App from './App';
 // import reportWebVitals from './reportWebVitals';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import GlobalState from "./context/GlobalState"
+import { BrowserRouter } from 'react-router-dom';
+
 
 ReactDOM.render(
   <div>
-    <CssBaseline />
-    <App />
+    <BrowserRouter>
+      <GlobalState>
+        <CssBaseline />
+        <App />
+      </GlobalState>
+    </BrowserRouter>
   </div>,
   document.getElementById('root')
 );

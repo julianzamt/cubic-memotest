@@ -19,6 +19,10 @@
     animation: beat 1s ease; /* beat animation defined on Timer.css*/
 }
 
+.tries__hidden {
+    visibility: hidden !important;
+}
+
 /* Tablets and Beyond*/
 @media (min-width: 480px){
     .tries__text {
