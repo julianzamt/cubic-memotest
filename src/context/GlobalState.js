@@ -24,7 +24,6 @@ const GlobalState = (props) => {
     const [stopTimeFlag, setStopTimeFlag] = useState(false)
 
     const history = useHistory()
-    console.log(history)
 
     const rankingRef = firebase.db.collection("Ranking")
 
